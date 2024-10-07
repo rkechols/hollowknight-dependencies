@@ -1,9 +1,462 @@
+fury-of-the-fallen:
+  display_name: Fury of the Fallen
+  item_type: Charm
+  prerequisites: []
+map-forgotten-crossroads:
+  display_name: Map of Forgotten Crossroads
+  item_type: Map
+  geo_cost: 30
+  prerequisites: []
+mask-shard-fcr-hot-springs:
+  display_name: Mask Shard (near hot springs of Forgotten Crossroads)
+  item_type: Upgrade
+  prerequisites: [mantis-claw]
+
+shop-iselda:
+  display_name: Iselda's shop
+  item_type: Shop
+  prerequisites: 'any(id_.startswith("map-") for id_ in items_completed)'
+wayward-compass:
+  display_name: Wayward Compass
+  item_type: Charm
+  geo_cost: 220
+  prerequisites: [shop-iselda]
+quill:
+  display_name: Quill
+  item_type: Singleton
+  geo_cost: 120
+  prerequisites: [shop-iselda]
+vendor-pins:
+  display_name: Vendor Pins
+  item_type: Singleton
+  geo_cost: 100
+  prerequisites: [shop-iselda]
+stag-pins:
+  display_name: Stag Station Pins
+  item_type: Singleton
+  geo_cost: 100
+  prerequisites: [shop-iselda]
+bench-pins:
+  display_name: Bench Pins
+  item_type: Singleton
+  geo_cost: 100
+  prerequisites: [shop-iselda]
+lifeblood-pins:
+  display_name: Lifeblood Cocoon Pins
+  item_type: Singleton
+  geo_cost: 100
+  prerequisites: [shop-iselda]
+hot-spring-pins:
+  display_name: Hot Spring Pins
+  item_type: Singleton
+  geo_cost: 100
+  prerequisites: [shop-iselda]
+whispering-root-pins:
+  display_name: Whispering Root Pins
+  item_type: Singleton
+  geo_cost: 150
+  prerequisites: [shop-iselda, dream-nail]
+warrior-grave-pins:
+  display_name: Warrior Grave Pins
+  item_type: Singleton
+  geo_cost: 180
+  prerequisites: [shop-iselda, dream-nail]
+tram-pins:
+  display_name: Tram Station Pins
+  item_type: Singleton
+  geo_cost: 100
+  prerequisites: [shop-iselda, tram-pass]
+blue-pins:
+  display_name: Blue Pins
+  item_type: Singleton
+  geo_cost: 100
+  prerequisites: [shop-iselda]
+red-pins:
+  display_name: Red Pins
+  item_type: Singleton
+  geo_cost: 100
+  prerequisites: [shop-iselda]
+silver-pins:
+  display_name: Silver Pins
+  item_type: Singleton
+  geo_cost: 210
+  prerequisites: [shop-iselda, mothwing-cloak]
+gold-pins:
+  display_name: Gold Pins
+  item_type: Singleton
+  geo_cost: 100
+  prerequisites: [shop-iselda, mothwing-cloak]
+
+stag-forgotten-crossroads:
+  display_name: Stag at Forgotten Crossroads
+  item_type: Path
+  geo_cost: 50
+  prerequisites: []
+stag-dirtmouth:
+  display_name: Stag at Dirtmouth
+  item_type: Path
+  prerequisites: 'any(id_.startswith("stag-") for id_ in items_completed)'
+shortcut-northeast-forgotten-crossroads:
+  display_name: Upward shortcut in NE Forgotten Crossroads
+  item_type: Path
+  prerequisites: []
 false-knight:
   display_name: False Knight
+  item_type: Boss
   prerequisites: []
 city-crest:
   display_name: City Crest
+  item_type: Singleton
   prerequisites: [false-knight]
+glowing-womb:
+  display_name: Glowing Womb
+  item_type: Charm
+  prerequisites: [false-knight, crystal-heart]
 vengeful-spirit:
   display_name: Vengeful Spirit
-  prerequisites: [city-crest]
+  item_type: Ability
+  prerequisites: [false-knight]
+soul-catcher:
+  display_name: Soul Catcher
+  item_type: Charm
+  prerequisites: [vengeful-spirit]
+
+brooding-mawlek:
+  display_name: Brooding Mawlek
+  item_type: Boss
+  prerequisites: [mantis-claw]
+mask-shard-mawlek:
+  display_name: Mask Shard (Brooding Mawlek)
+  item_type: Upgrade
+  prerequisites: [brooding-mawlek]
+
+greenpath-entrance:
+  display_name: Greenpath Entrance
+  item_type: Path
+  prerequisites: [vengeful-spirit]
+fog-canyon-west:
+  display_name: Fog Canyon (west)
+  item_type: Path
+  prerequisites: [greenpath-entrance]
+howling-wraiths:
+  display_name: Howling Wraiths
+  item_type: Ability
+  prerequisites: [fog-canyon-west, mantis-claw]
+
+gruz-mother:
+  display_name: Gruz Mother
+  item_type: Boss
+  prerequisites: []
+shop-sly:
+  display_name: Sly's Shop
+  item_type: Shop
+  prerequisites: [gruz-mother]
+simple-key-sly:
+  display_name: Simple Key (Sly's shop)
+  item_type: Expendable
+  geo_cost: 950
+  prerequisites: [shop-sly]
+rancid-egg-sly:
+  display_name: Rancid Egg (Sly's shop)
+  item_type: Expendable
+  geo_cost: 60
+  prerequisites: [shop-sly]
+lantern:
+  display_name: Lumafly Lantern
+  item_type: Ability
+  geo_cost: 1800
+  prerequisites: [shop-sly]
+gathering-swarm:
+  display_name: Gathering Swarm
+  item_type: Charm
+  geo_cost: 300
+  prerequisites: [shop-sly]
+stalwart-shell:
+  display_name: Stalwart Shell
+  item_type: Charm
+  geo_cost: 200
+  prerequisites: [shop-sly]
+heavy-blow:
+  display_name: Heavy Blow
+  item_type: Charm
+  geo_cost: 350
+  prerequisites: [shop-sly, shopkeepers-key]
+elegant-key:
+  display_name: Elegant Key
+  item_type: Singleton
+  geo_cost: 800
+  prerequisites: [shop-sly, shopkeepers-key]
+mask-shard-sly-1:
+  display_name: Mask Shard (Sly's shop)
+  item_type: Upgrade
+  geo_cost: 150
+  prerequisites: [shop-sly]
+mask-shard-sly-2:
+  display_name: Mask Shard (Sly's shop)
+  item_type: Upgrade
+  geo_cost: 500
+  prerequisites: [shop-sly, mask-shard-sly-1]
+mask-shard-sly-3:
+  display_name: Mask Shard (Sly's shop)
+  item_type: Upgrade
+  geo_cost: 800
+  prerequisites: [shop-sly, shopkeepers-key, mask-shard-sly-2]
+mask-shard-sly-4:
+  display_name: Mask Shard (Sly's shop)
+  item_type: Upgrade
+  geo_cost: 1500
+  prerequisites: [shop-sly, shopkeepers-key, mask-shard-sly-3]
+vessel-fragment-sly-1:
+  display_name: Vessel Fragment (Sly's shop)
+  item_type: Upgrade
+  geo_cost: 550
+  prerequisites: [shop-sly]
+vessel-fragment-sly-2:
+  display_name: Vessel Fragment (Sly's shop)
+  item_type: Upgrade
+  geo_cost: 900
+  prerequisites: [shop-sly, shopkeepers-key, vessel-fragment-sly-1]
+sprintmaster:
+  display_name: Sprintmaster
+  item_type: Charm
+  geo_cost: 400
+  prerequisites: [shop-sly, shopkeepers-key]
+
+map-greenpath:
+  display_name: Map of Greenpath
+  item_type: Map
+  geo_cost: 60
+  prerequisites: [greenpath-entrance]
+hunters-journal:
+  display_name: Hunter's Journal
+  item_type: Upgrade
+  prerequisites: [greenpath-entrance]
+no-eyes:
+  display_name: No Eyes
+  item_type: Boss
+  prerequisites: [lantern, dream-nail]
+mask-shard-no-eyes:
+  display_name: Mask Shard (No Eyes)
+  item_type: Upgrade
+  prerequisites: [no-eyes]
+great-slash:
+  display_name: Great Slash
+  item_type: Upgrade
+  prerequisites: [greenpath-entrance, crystal-heart]
+rancid-egg-sheo:
+  display_name: Rancid Egg (Sheo)
+  item_type: Expendable
+  prerequisites: [great-slash]
+moss-knight:
+  display_name: Moss Knight (miniboss)
+  item_type: Boss
+  prerequisites: [greenpath-entrance]
+zote-1:
+  display_name: Zote (greenpath)
+  item_type: Singleton
+  prerequisites: [moss-knight]
+stag-greenpath:
+  display_name: Stag at Greenpath
+  item_type: Path
+  geo_cost: 140
+  prerequisites: [moss-knight]
+hornet-1:
+  display_name: Hornet (Greenpath)
+  item_type: Boss
+  prerequisites: [moss-knight]
+mothwing-cloak:
+  display_name: Mothwing Cloak
+  item_type: Ability
+  prerequisites: [hornet-1]
+shape-of-unn:
+  display_name: Shape of Unn
+  item_type: Charm
+  prerequisites: [hornet-1, ismas-tear]
+thorns-of-agony:
+  display_name: Thorns of Agony
+  item_type: Charm
+  prerequisites: [mothwing-cloak]
+baldur-shell:
+  display_name: Baldur Shell
+  item_type: Charm
+  prerequisites: [mothwing-cloak]
+massive-moss-charger:
+  display_name: Massive Moss Charger
+  item_type: Boss
+  prerequisites: [mothwing-cloak]
+vessel-fragment-mmc:
+  display_name: Vessel Fragment (Massive Moss Charger)
+  item_type: Upgrade
+  prerequisites: [massive-moss-charger, mantis-claw]
+
+howling-cliffs:
+  display_name: Howling Cliffs
+  item_type: Path
+  prerequisites: [mothwing-cloak]
+jonis-blessing:
+  display_name: Joni's Blessing
+  item_type: Charm
+  prerequisites: [howling-cliffs, lantern, desolate-dive]
+map-howling-cliffs:
+  display_name: Map of Howling Cliffs
+  item_type: Map
+  geo_cost: 75
+  prerequisites: [howling-cliffs]
+stag-howling-cliffs:
+  display_name: Stag at Howling Cliffs
+  item_type: Path
+  prerequisites: 'sum(item.startswith("stag-") for item in items_completed) >= 10'
+vessel-fragment-last-stag:
+  display_name: Vessel Fragment (last stag station)
+  item_type: Upgrade
+  prerequisites: [stag-howling-cliffs]
+gorb:
+  display_name: Gorb
+  item_type: Boss
+  prerequisites: [howling-cliffs, dream-nail]
+cyclone-slash:
+  display_name: Cyclone Slash
+  item_type: Upgrade
+  prerequisites: [howling-cliffs]
+
+shortcut-qg-gp-r2l:
+  display_name: Queen's Gardens / Greenpath shortcut (right to left)
+  item_type: Path
+  prerequisites: [massive-moss-charger, mantis-claw]
+shortcut-qg-gp-l2r:
+  display_name: Queen's Gardens / Greenpath shortcut (left to right)
+  item_type: Path
+  prerequisites: [queens-gardens-entrance]
+shortcut-qg-gp:
+  display_name: Queen's Gardens / Greenpath shortcut
+  item_type: Path
+  prerequisites: [shortcut-qg-gp-r2l, shortcut-qg-gp-l2r]
+
+shop-salubra:
+  display_name: Salubra's Shop
+  item_type: Shop
+  prerequisites: [gruz-mother, mothwing-cloak]
+lifeblood-heart:
+  display_name: Lifeblood Heart
+  item_type: Charm
+  geo_cost: 250
+  prerequisites: [shop-salubra]
+longnail:
+  display_name: Longnail
+  item_type: Charm
+  geo_cost: 300
+  prerequisites: [shop-salubra]
+steady-body:
+  display_name: Steady Body
+  item_type: Charm
+  geo_cost: 120
+  prerequisites: [shop-salubra]
+shaman-stone:
+  display_name: Shaman Stone
+  item_type: Charm
+  geo_cost: 220
+  prerequisites: [shop-salubra]
+quick-focus:
+  display_name: Quick Focus
+  item_type: Charm
+  geo_cost: 800
+  prerequisites: [shop-salubra]
+charm-notch-salubra-1:
+  display_name: Charm Notch (Salubra)
+  item_type: Upgrade
+  geo_cost: 120
+  prerequisites: '`shop-salubra` && (count_charms(items_completed) >= 5)'
+charm-notch-salubra-2:
+  display_name: Charm Notch (Salubra)
+  item_type: Upgrade
+  geo_cost: 500
+  prerequisites: '`shop-salubra` && (count_charms(items_completed) >= 10)'
+charm-notch-salubra-3:
+  display_name: Charm Notch (Salubra)
+  item_type: Upgrade
+  geo_cost: 900
+  prerequisites: '`shop-salubra` && (count_charms(items_completed) >= 18)'
+charm-notch-salubra-4:
+  display_name: Charm Notch (Salubra)
+  item_type: Upgrade
+  geo_cost: 1400
+  prerequisites: '`shop-salubra` && (count_charms(items_completed) >= 25)'
+salubras-blessing:
+  display_name: Salubra's Blessing
+  item_type: Charm
+  geo_cost: 800
+  prerequisites: '`shop-salubra` && (count_charms(items_completed) >= 40)'
+
+shortcut-fcr-and-resting-grounds:
+  display_name: Shortcut between SE Forgotten Crossroads and Resting Grounds
+  item_type: Path
+  prerequisites: [crystal-heart]
+
+bank:
+  display_name: Millibelle's Bank
+  item_type: Shop
+  geo_cost: 100
+  prerequisites: [fog-canyon-west]
+stag-queens-station:
+  display_name: Stag at Queen's Station
+  item_type: Path
+  geo_cost: 120
+  prerequisites: [fog-canyon-west]
+mask-shard-queens-station:
+  display_name: Mask Shard (Queen's Station)
+  item_type: Upgrade
+  prerequisites: [fog-canyon-west, mantis-claw]
+
+fungal-wastes:
+  display_name: Fungal Wastes
+  item_type: Path
+  prerequisites: [mothwing-cloak]
+map-fungal-wastes:
+  display_name: Map of Fungal Wastes
+  item_type: Map
+  geo_cost: 75
+  prerequisites: [fungal-wastes]
+shrumal-ogres:
+  display_name: Shrumal Ogres (miniboss)
+  item_type: Boss
+  prerequisites: [fungal-wastes]
+charm-notch-shrumal-ogres:
+  display_name: Charm Notch (Shrumal Ogres)
+  item_type: Upgrade
+  prerequisites: [shrumal-ogres]
+
+shop-leg-eater:
+  display_name: Leg Eater's Shop
+  item_type: Shop
+  geo_cost: 86
+  prerequisites: [fungal-wastes]
+# TODO
+
+
+#desolate-dive:
+#dream-nail:
+#  display_name: Dream Nail
+#  item_type: Ability
+#  pre
+#tram-pass:
+#  display_name: Tram Pass
+#  item_type: Ability
+#  pre
+#crystal-heart:
+#shopkeepers-key:
+#mantis-claw:
+#shadow-dash:
+#ismas-tear:
+#queens-gardens-entrance:
+#great-slash:
+#dash-slash:
+
+fog-canyon-east:
+  display_name: Fog Canyon (east)
+  item_type: Path
+  prerequisites: '(`fog-canyon-west` && `shadow-dash`) || `ismas-tear`'
+
+nailmasters-glory:
+  display_name: Nailmaster's Glory
+  item_type: Charm
+  prerequisites: [cyclone-slash, great-slash, dash-slash, shop-sly]

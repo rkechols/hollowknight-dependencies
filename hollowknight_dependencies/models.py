@@ -1,39 +1,69 @@
+import itertools
+from enum import StrEnum
 from pathlib import Path
-from typing import Annotated
+from typing import Self
 
 import yaml
-from pydantic import AfterValidator, BaseModel, RootModel
+from pydantic import BaseModel, RootModel, model_validator
+
+PrerequisiteSpec = set[str] | str
+
+
+class ItemType(StrEnum):
+    ABILITY = "Ability"
+    BOSS = "Boss"
+    CHARM = "Charm"
+    EXPENDABLE = "Expendable"
+    MAP = "Map"
+    PATH = "Path"
+    SHOP = "Shop"
+    SINGLETON = "Singleton"
+    UPGRADE = "Upgrade"
 
 
 class ProgressionItem(BaseModel):
     id: str
     display_name: str
+    item_type: ItemType
     geo_cost: int | None = None
-    prerequisites: set[str]  # IDs of other ProgressionItems
+    prerequisites: PrerequisiteSpec
 
 
 AllProgressionItemsType = dict[str, ProgressionItem]
 
 
-def _check_ids(all_items: AllProgressionItemsType) -> AllProgressionItemsType:
-    missing_ids = set()
-    for item in all_items.values():
-        for prerequisite_id in item.prerequisites:
-            if prerequisite_id not in all_items.keys():
-                missing_ids.add(prerequisite_id)
-    if len(missing_ids) > 0:
-        raise ValueError(f"item IDs used as prerequisites, but no matching item declarations were found: {sorted(missing_ids)}")
-    return all_items
-
-
-_AllProgressionItems = RootModel[Annotated[AllProgressionItemsType, AfterValidator(_check_ids)]]
-
 with open(Path(__file__).parent / "all-progression-items.yaml", "r", encoding="utf-8") as f_:
     _all_progression_items = yaml.safe_load(f_)
 for id_, obj_ in _all_progression_items.items():
     obj_["id"] = id_
-ALL_PROGRESSION_ITEMS = _AllProgressionItems.model_validate(_all_progression_items).root
+ALL_PROGRESSION_ITEMS = RootModel[AllProgressionItemsType].model_validate(_all_progression_items).root
 
 
 class Progress(BaseModel):
-    completed_items: set[str]
+    items_completed: set[str]
+    items_available: set[str]
+    items_blocked: set[str]
+
+    @model_validator(mode="after")
+    def validate_completeness(self) -> Self:
+        all_ids = set(ALL_PROGRESSION_ITEMS.keys())
+        # check that no items are left out, and that none are extraneous/undefined
+        union = self.items_completed | self.items_available | self.items_blocked
+        if len(missing := all_ids - union) > 0:
+            raise ValueError(f"`Progress` should partition item IDs; some IDs are missing: {sorted(missing)}")
+        elif len(extra := union - all_ids) > 0:
+            raise ValueError(f"`Progress` should partition item IDs; some extra IDs were listed: {sorted(extra)}")
+        # else: all IDs are listed
+        # check that no items are in multiple sets
+        duplicated = set()
+        for set1, set2 in itertools.combinations((self.items_completed, self.items_available, self.items_blocked), 2):
+            duplicated.update(set1 & set2)
+        if len(duplicated) > 0:
+            raise ValueError(f"`Progress` should partition item IDs; some IDs were duplicated: {sorted(duplicated)}")
+        return self
+
+
+if __name__ == "__main__":
+    from pprint import pprint
+
+    pprint(ALL_PROGRESSION_ITEMS)

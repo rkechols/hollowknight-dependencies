@@ -3,10 +3,10 @@ from typing import Annotated
 
 from fastapi import Depends, FastAPI, status as http_status
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel
 
 from hollowknight_dependencies.db_interface import DbInterface, ItemNotDefinedError, PrerequisiteViolationError
-from hollowknight_dependencies.models import ALL_PROGRESSION_ITEMS, AllProgressionItemsType
+from hollowknight_dependencies.models import ALL_PROGRESSION_ITEMS, AllProgressionItemsType, Progress
+from hollowknight_dependencies.prerequisites import analyze_progress
 
 
 async def get_db():
@@ -54,30 +54,27 @@ async def get_root():
     return {"service": "hollowknight-dependencies"}
 
 
-class ResponseWithAllItemDefinitions(BaseModel):
-    all_item_definitions: AllProgressionItemsType = ALL_PROGRESSION_ITEMS
-
-
-class ResponseProgress(ResponseWithAllItemDefinitions):
-    items_completed: set[str]
+@api.get("/all-item-definitions")
+async def get_all_item_definitions() -> AllProgressionItemsType:
+    return ALL_PROGRESSION_ITEMS
 
 
 @api.get("/current-progress")
-async def get_current_progress(db: DbInterfaceDep) -> ResponseProgress:
+async def get_current_progress(db: DbInterfaceDep) -> Progress:
     items_completed = await db.query_completed_progress_items()
-    return ResponseProgress(items_completed=items_completed)
+    return analyze_progress(items_completed)
 
 
 @api.post("/mark-item-completed")
-async def mark_item_completed(progress_item_id: str, db: DbInterfaceDep) -> ResponseProgress:
+async def mark_item_completed(progress_item_id: str, db: DbInterfaceDep) -> Progress:
     items_completed = await db.mark_progress_item_completed(progress_item_id)
-    return ResponseProgress(items_completed=items_completed)
+    return analyze_progress(items_completed)
 
 
 @api.post("/reset")
-async def reset(db: DbInterfaceDep):
+async def reset(db: DbInterfaceDep) -> Progress:
     await db.reset_all_progress()
-    return {"success": True}
+    return analyze_progress(set())
 
 
 def run_dev():

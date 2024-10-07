@@ -4,9 +4,9 @@ from typing import Self
 
 import aiofiles
 import aiosqlite
-from aiosqlite import Connection
 
 from hollowknight_dependencies.models import ALL_PROGRESSION_ITEMS
+from hollowknight_dependencies.prerequisites import prerequisites_are_satisfied
 
 
 class ItemNotDefinedError(ValueError):
@@ -25,7 +25,7 @@ class DbInterface:
             db.row_factory = aiosqlite.Row
             yield DbInterface(db)
 
-    def __init__(self, db_connection: Connection):
+    def __init__(self, db_connection: aiosqlite.Connection):
         super().__init__()
         self.conn = db_connection
 
@@ -51,9 +51,8 @@ class DbInterface:
         if progress_item_id in completed_items:
             # already completed, no action needed
             return completed_items
-        missing_prerequisites = progress_item.prerequisites - completed_items
-        if len(missing_prerequisites) > 0:
-            raise PrerequisiteViolationError(f"{progress_item_id=} has unmet prerequisites: {sorted(missing_prerequisites)}")
+        if not prerequisites_are_satisfied(progress_item, completed_items):
+            raise PrerequisiteViolationError(f"{progress_item_id=} has unmet prerequisites")
         # mark it as completed
         await self.conn.execute("INSERT INTO progress_item_completed (id) VALUES (?)", [progress_item_id])
         await self.conn.commit()
