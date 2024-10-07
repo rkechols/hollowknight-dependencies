@@ -1,0 +1,17 @@
+[project]
+name = "hollowknight-dependencies"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "aiofiles>=24.1.0",
+    "aiosqlite>=0.20.0",
+    "fastapi>=0.115.0",
+    "pydantic>=2.9.2",
+    "pyyaml>=6.0.2",
+    "uvicorn>=0.31.0",
+]
+
+[tool.ruff]
+line-length = 180

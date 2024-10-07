@@ -1,0 +1,9 @@
+false-knight:
+  display_name: False Knight
+  prerequisites: []
+city-crest:
+  display_name: City Crest
+  prerequisites: [false-knight]
+vengeful-spirit:
+  display_name: Vengeful Spirit
+  prerequisites: [city-crest]

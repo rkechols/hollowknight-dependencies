@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS progress_item_completed(
+    id TEXT NOT NULL PRIMARY KEY,
+    completed_at DATETIME DEFAULT CURRENT_TIMESTAMP
+)
