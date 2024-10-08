@@ -13,7 +13,6 @@ class ItemType(StrEnum):
     ABILITY = "Ability"
     BOSS = "Boss"
     CHARM = "Charm"
-    EXPENDABLE = "Expendable"
     MAP = "Map"
     PATH = "Path"
     SHOP = "Shop"
