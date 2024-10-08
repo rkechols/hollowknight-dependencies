@@ -17,11 +17,13 @@ class ItemType(StrEnum):
     MAP = "Map"
     PATH = "Path"
     SHOP = "Shop"
+    SIMPLE_KEY = "Simple Key"
     SINGLETON = "Singleton"
+    STAG_STATION = "Stag Station"
     UPGRADE = "Upgrade"
 
 
-class ProgressionItem(BaseModel):
+class ProgressionItem(BaseModel, frozen=True):
     id: str
     display_name: str
     item_type: ItemType

@@ -15,7 +15,7 @@ mask-shard-fcr-hot-springs:
 shop-iselda:
   display_name: Iselda's shop
   item_type: Shop
-  prerequisites: 'any(id_.startswith("map-") for id_ in items_completed)'
+  prerequisites: 'any(item.item_type == "Map" for item in items_completed)'
 wayward-compass:
   display_name: Wayward Compass
   item_type: Charm
@@ -89,13 +89,13 @@ gold-pins:
 
 stag-forgotten-crossroads:
   display_name: Stag at Forgotten Crossroads
-  item_type: Path
+  item_type: Stag Station
   geo_cost: 50
   prerequisites: []
 stag-dirtmouth:
   display_name: Stag at Dirtmouth
-  item_type: Path
-  prerequisites: 'any(id_.startswith("stag-") for id_ in items_completed)'
+  item_type: Stag Station
+  prerequisites: 'any(item.item_type == "Stag Station" for item in items_completed)'
 shortcut-northeast-forgotten-crossroads:
   display_name: Upward shortcut in NE Forgotten Crossroads
   item_type: Path
@@ -153,13 +153,8 @@ shop-sly:
   prerequisites: [gruz-mother]
 simple-key-sly:
   display_name: Simple Key (Sly's shop)
-  item_type: Expendable
+  item_type: Simple Key
   geo_cost: 950
-  prerequisites: [shop-sly]
-rancid-egg-sly:
-  display_name: Rancid Egg (Sly's shop)
-  item_type: Expendable
-  geo_cost: 60
   prerequisites: [shop-sly]
 lantern:
   display_name: Lumafly Lantern
@@ -243,10 +238,6 @@ great-slash:
   display_name: Great Slash
   item_type: Upgrade
   prerequisites: [greenpath-entrance, crystal-heart]
-rancid-egg-sheo:
-  display_name: Rancid Egg (Sheo)
-  item_type: Expendable
-  prerequisites: [great-slash]
 moss-knight:
   display_name: Moss Knight (miniboss)
   item_type: Boss
@@ -257,7 +248,7 @@ zote-1:
   prerequisites: [moss-knight]
 stag-greenpath:
   display_name: Stag at Greenpath
-  item_type: Path
+  item_type: Stag Station
   geo_cost: 140
   prerequisites: [moss-knight]
 hornet-1:
@@ -304,8 +295,8 @@ map-howling-cliffs:
   prerequisites: [howling-cliffs]
 stag-howling-cliffs:
   display_name: Stag at Howling Cliffs
-  item_type: Path
-  prerequisites: 'sum(item.startswith("stag-") for item in items_completed) >= 10'
+  item_type: Stag Station
+  prerequisites: 'sum(item.item_type == "Stag Station" for item in items_completed) >= 10'
 vessel-fragment-last-stag:
   display_name: Vessel Fragment (last stag station)
   item_type: Upgrade
@@ -326,7 +317,7 @@ shortcut-qg-gp-r2l:
 shortcut-qg-gp-l2r:
   display_name: Queen's Gardens / Greenpath shortcut (left to right)
   item_type: Path
-  prerequisites: [queens-gardens-entrance]
+  prerequisites: [queens-gardens]
 shortcut-qg-gp:
   display_name: Queen's Gardens / Greenpath shortcut
   item_type: Path
@@ -399,7 +390,7 @@ bank:
   prerequisites: [fog-canyon-west]
 stag-queens-station:
   display_name: Stag at Queen's Station
-  item_type: Path
+  item_type: Stag Station
   geo_cost: 120
   prerequisites: [fog-canyon-west]
 mask-shard-queens-station:
@@ -430,7 +421,103 @@ shop-leg-eater:
   item_type: Shop
   geo_cost: 86
   prerequisites: [fungal-wastes]
-# TODO
+fragile-heart:
+  display_name: Fragile Heart
+  item_type: Charm
+  geo_cost: 350
+  prerequisites: [shop-leg-eater]
+fragile-greed:
+  display_name: Fragile Greed
+  item_type: Charm
+  geo_cost: 250
+  prerequisites: [shop-leg-eater]
+fragile-strength:
+  display_name: Fragile Strength
+  item_type: Charm
+  geo_cost: 600
+  prerequisites: [shop-leg-eater]
+
+mantis-claw:
+  display_name: Mantis Claw
+  item_type: Ability
+  prerequisites: [fungal-wastes]
+spore-shroom:
+  display_name: Spore Shroom
+  item_type: Charm
+  prerequisites: [fungal-wastes, mantis-claw]
+find-bretta:
+  display_name: Find Bretta
+  item_type: Singleton
+  prerequisites: [fungal-wastes, mantis-claw]
+dashmaster:
+  display_name: Dashmaster
+  item_type: Charm
+  prerequisites: [fungal-wastes]
+elder-hu:
+  display_name: Elder Hu
+  item_type: Boss
+  prerequisites: [fungal-wastes, dream-nail]
+mantis-lords:
+  display_name: Mantis Lords
+  item_type: Boss
+  prerequisites: [mantis-claw]
+mark-of-pride:
+  display_name: Mark of Pride
+  item_type: Charm
+  prerequisites: [mantis-lords]
+mask-shard-mantis-town:
+  display_name: Mask Shard (near mantis town)
+  item_type: Upgrade
+  prerequisites: [fungal-wastes, monarch-wings]
+
+city-of-tears-west:
+  display_name: City of Tears (west)
+  item_type: Path
+  prerequisites: '`fungal-wastes` && `mantis-claw` && `city-crest` || `city-of-tears-east`'
+
+shop-nailsmith:
+  display_name: Nailsmith's Shop
+  item_type: Shop
+  prerequisites: [city-of-tears-west]
+nail-upgrade-1:
+  display_name: Nail Upgrade 1
+  item_type: Upgrade
+  geo_cost: 250
+  prerequisites: [shop-nailsmith]
+nail-upgrade-2:
+  display_name: Nail Upgrade 2
+  item_type: Upgrade
+  geo_cost: 800
+  prerequisites: '`shop-nailsmith` && (sum(id_.startswith("pale-ore-") for id_ in items_completed_ids) >= 1)'
+nail-upgrade-3:
+  display_name: Nail Upgrade 3
+  item_type: Upgrade
+  geo_cost: 2000
+  prerequisites: '`shop-nailsmith` && (sum(id_.startswith("pale-ore-") for id_ in items_completed_ids) >= 3)'
+nail-upgrade-4:
+  display_name: Nail Upgrade 4
+  item_type: Upgrade
+  geo_cost: 4000
+  prerequisites: '`shop-nailsmith` && (sum(id_.startswith("pale-ore-") for id_ in items_completed_ids) >= 6)'
+
+shop-lemm:
+  display_name: Lemm's Shop
+  item_type: Shop
+  prerequisites: [city-of-tears-west]
+map-city-of-tears:
+  display_name: Map of City of Tears
+  item_type: Map
+  prerequisites: [city-of-tears-west]
+simple-key-storerooms:
+  display_name: Simple Key (CoT storerooms)
+  item_type: Simple Key
+  prerequisites: [city-of-tears-west]
+
+
+crystal-peak:
+  display_name: Crystal Peak
+  item_type: Path
+  prerequisites: '`lantern` || `desolate-dive`'
 
 
 #desolate-dive:
@@ -447,9 +534,14 @@ shop-leg-eater:
 #mantis-claw:
 #shadow-dash:
 #ismas-tear:
-#queens-gardens-entrance:
+#queens-gardens:
 #great-slash:
 #dash-slash:
+
+deepnest:
+  display_name: Deepnest
+  item_type: Path
+  prerequisites: '`mantis-lords` || (`fungal-wastes` && `monarch-wings`) || `queens-gardens`'
 
 fog-canyon-east:
   display_name: Fog Canyon (east)

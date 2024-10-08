@@ -1,5 +1,9 @@
-import pytest
+from unittest.mock import Mock
 
+import pytest
+from pytest_mock import MockerFixture
+
+from hollowknight_dependencies.models import ALL_PROGRESSION_ITEMS
 from hollowknight_dependencies.prerequisites import PrerequisiteExpressionError, prerequisites_are_satisfied
 
 ITEM_A = "item-a"
@@ -8,6 +12,12 @@ ITEM_C = "item-c"
 ITEM_D = "item-d"
 
 ALL_ITEMS = {ITEM_A, ITEM_B, ITEM_C, ITEM_D}
+
+
+@pytest.fixture(scope="function", autouse=True)
+def mock_all_progression_items(mocker: MockerFixture):
+    new_all_items = {id_: Mock() for id_ in ALL_ITEMS}
+    mocker.patch.dict(ALL_PROGRESSION_ITEMS, new_all_items, clear=True)
 
 
 class TestPrerequisitesAreSatisfied:
