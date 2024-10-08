@@ -11,16 +11,24 @@ forgotten-crossroads:
   display_name: Forgotten Crossroads
   item_type: Path
   prerequisites: [dirtmouth]
+infected-crossroads:
+  display_name: Infected Crossroads
+  item_type: Path
+  prerequisites: '`monarch-wings` || `dreamer-hera` || `dreamer-monomon` || `dreamer-lurien`'
 
 greenpath:
   display_name: Greenpath
   item_type: Path
   prerequisites: [forgotten-crossroads, vengeful-spirit]
+greenpath-west:
+  display_name: Greenpath (west)
+  item_type: Path
+  prerequisites: [greenpath, moss-knight]
 
 howling-cliffs:
   display_name: Howling Cliffs
   item_type: Path
-  prerequisites: [mothwing-cloak]
+  prerequisites: '`stag-howling-cliffs` || (`mantis-claw` && (`kings-pass` || `greenpath-west`))'
 
 fog-canyon-west:
   display_name: Fog Canyon (west)
@@ -87,18 +95,27 @@ desolate-dive:
   prerequisites: [soul-master]
 
 # shops
+shop-jiji:
+  display_name: Confessor Jiji's Shop
+  item_type: Shop
+  prerequisites: '`simple-key`'
 shop-iselda:
   display_name: Iselda's shop
   item_type: Shop
-  prerequisites: 'any(item.item_type == "Map" for item in items_completed)'
+  prerequisites: 'any(item.item_type == "Map" for item in items_completed) || `false-knight`'
 shop-sly:
   display_name: Sly's Shop
   item_type: Shop
   prerequisites: [gruz-mother, dirtmouth]
+shop-grubfather:
+  display_name: Grubfather
+  item_type: Shop
+  prerequisites: [forgotten-crossroads]
 shop-salubra:
   display_name: Salubra's Shop
   item_type: Shop
-  prerequisites: [gruz-mother, mothwing-cloak]
+  # TODO: double check how to cross the blue lake
+  prerequisites: '(`gruz-mother` && (`mothwing-cloak` || `mantis-claw`)) || `blue-lake`'
 bank:
   display_name: Millibelle's Bank
   item_type: Shop
@@ -158,21 +175,21 @@ stag-greenpath:
   display_name: Stag at Greenpath
   item_type: Stag Station
   geo_cost: 140
-  prerequisites: [moss-knight]
+  prerequisites: [greenpath-west]
 stag-queens-station:
   display_name: Stag at Queen's Station
   item_type: Stag Station
   geo_cost: 120
   prerequisites: [fog-canyon-west]
-stag-howling-cliffs:
-  display_name: Stag at Howling Cliffs
-  item_type: Stag Station
-  prerequisites: 'sum(item.item_type == "Stag Station" for item in items_completed) >= 10'
 stag-city-storerooms:
   display_name: Stag at City Storerooms
   item_type: Stag Station
   geo_cost: 200
   prerequisites: [city-storerooms]
+stag-howling-cliffs:
+  display_name: Stag at Howling Cliffs
+  item_type: Stag Station
+  prerequisites: 'sum(item.item_type == "Stag Station" for item in items_completed) >= 10'
 
 # simple keys
 simple-key-sly:
@@ -193,7 +210,7 @@ false-knight:
 brooding-mawlek:
   display_name: Brooding Mawlek
   item_type: Boss
-  prerequisites: [mantis-claw]
+  prerequisites: [forgotten-crossroads, mantis-claw]
 gruz-mother:
   display_name: Gruz Mother
   item_type: Boss
@@ -209,7 +226,7 @@ moss-knight:
 hornet-greenpath:
   display_name: Hornet (Greenpath)
   item_type: Boss
-  prerequisites: [moss-knight]
+  prerequisites: [greenpath-west]
 massive-moss-charger:
   display_name: Massive Moss Charger
   item_type: Boss
@@ -290,7 +307,7 @@ thorns-of-agony:
 baldur-shell:
   display_name: Baldur Shell
   item_type: Charm
-  prerequisites: [mothwing-cloak]
+  prerequisites: [greenpath-west, mothwing-cloak, vengeful-spirit]
 jonis-blessing:
   display_name: Joni's Blessing
   item_type: Charm
@@ -545,11 +562,12 @@ cyclone-slash:
   display_name: Cyclone Slash
   item_type: Upgrade
   prerequisites: [howling-cliffs]
+#dash-slash:
 ## Zote
 zote-greenpath:
   display_name: Zote (greenpath)
   item_type: Singleton
-  prerequisites: [moss-knight]
+  prerequisites: [greenpath-west]
 ## one-offs
 vessel-fragment-last-stag:
   display_name: Vessel Fragment (last stag station)
@@ -571,6 +589,10 @@ vessel-fragment-above-city-storerooms:
   display_name: Vessel Fragment (City Storerooms lift)
   item_type: Upgrade
   prerequisites: [city-storerooms]
+mask-shard-bretta:
+  display_name: Mask Shard (Bretta's house)
+  item_type: Upgrade
+  prerequisites: [dirtmouth, find-bretta]
 
 
 #desolate-dive:
@@ -587,4 +609,4 @@ vessel-fragment-above-city-storerooms:
 #shadow-dash:
 #ismas-tear:
 #queens-gardens:
-#dash-slash:
+#grimm-troupe:
