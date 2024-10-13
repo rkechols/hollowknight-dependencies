@@ -14,6 +14,7 @@ class ItemType(StrEnum):
     BOSS = "Boss"
     CHARM = "Charm"
     MAP = "Map"
+    PALE_ORE = "Pale Ore"
     PATH = "Path"
     SHOP = "Shop"
     SIMPLE_KEY = "Simple Key"
@@ -27,6 +28,8 @@ class ProgressionItem(BaseModel, frozen=True):
     display_name: str
     item_type: ItemType
     geo_cost: int | None = None
+    grub_cost: int | None = None
+    essence_cost: int | None = None
     prerequisites: PrerequisiteSpec
 
 

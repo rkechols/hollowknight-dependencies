@@ -33,7 +33,7 @@ howling-cliffs:
 fog-canyon-west:
   display_name: Fog Canyon (west)
   item_type: Path
-  prerequisites: [greenpath]
+  prerequisites: '`greenpath` || `fog-canyon-east`'
 fog-canyon-east:
   display_name: Fog Canyon (east)
   item_type: Path
@@ -42,7 +42,7 @@ fog-canyon-east:
 fungal-wastes:
   display_name: Fungal Wastes
   item_type: Path
-  prerequisites: [mothwing-cloak]
+  prerequisites: '`mothwing-cloak` && (`fog-canyon-west` || `forgotten-crossroads`)'
 
 city-of-tears-west:
   display_name: City of Tears (west)
@@ -57,15 +57,89 @@ soul-sanctum:
   item_type: Path
   prerequisites: [city-of-tears-west]
 
+city-of-tears-east:
+  display_name: City of Tears (east)
+  item_type: Path
+  prerequisites: '`ancient-basin` || `kingdoms-edge` || `blue-lake` || `royal-waterways-east`'
+pleasure-house:
+  display_name: Pleasure House
+  item_type: Path
+  prerequisites: '`city-of-tears-east` && `simple-key`'
+watchers-spire:
+  display_name: Watcher's Spire
+  item_type: Path
+  prerequisites: [city-of-tears-east, monarch-wings]
+tower-of-love:
+  display_name: Tower of Love
+  item_type: Path
+  prerequisites: [kingdoms-edge, love-key]
+
+royal-waterways-west:
+  display_name: Royal Waterways (west)
+  item_type: Path
+  prerequisites: '`city-of-tears-west` && `simple-key` || `royal-waterways-east` && `crystal-heart`'
+royal-waterways-east:
+  display_name: Royal Waterways (east)
+  item_type: Path
+  prerequisites: '`crystal-heart` && (`royal-waterways-west` || `kingdoms-edge-sw`)'
+
 crystal-peak:
   display_name: Crystal Peak
   item_type: Path
-  prerequisites: '`lantern` || `desolate-dive`'
+  geo_cost: 50
+  prerequisites: '`forgotten-crossroads` && (`lantern` || `desolate-dive`)'
+
+resting-grounds:
+  display_name: Resting Grounds
+  item_type: Path
+  prerequisites: '(`tram-pass` && `forgotten-crossroads`) || `blue-lake` || (`crystal-peak` && `lantern`)'
+resting-grounds-crypts:
+  display_name: Resting Grounds Crypts
+  item_type: Path
+  prerequisites: [resting-grounds, desolate-dive]
+spirits-glade:
+  display_name: Spirits' Glade
+  item_type: Path
+  essence_cost: 200
+  prerequisites: [shop-seer]
+blue-lake:
+  display_name: Blue Lake
+  item_type: Path
+  prerequisites: '(`shop-salubra` && `mantis-claw` && `monarch-wings`) || `resting-grounds-crypts` || `city-of-tears-east`'
 
 deepnest:
   display_name: Deepnest
   item_type: Path
   prerequisites: '`mantis-lords` || (`fungal-wastes` && `monarch-wings`) || `queens-gardens`'
+
+kingdoms-edge:
+  display_name: Kingdom's Edge
+  item_type: Path
+  prerequisites: [TODO]
+
+kingdoms-edge-sw:
+  display_name: Kingdom's Edge (SW corner)
+  item_type: Path
+  prerequisites: [TODO]
+
+hive:
+  display_name: Hive
+  item_type: Path
+  prerequisites: [TODO]
+
+palace-grounds:
+  display_name: Palace Grounds
+  item_type: Path
+  prerequisites: [TODO]
+white-palace:
+  display_name: White Palace
+  item_type: Path
+  prerequisites: [awoken-dream-nail, palace-grounds]
+
+godhome:
+  display_name: Godhome
+  item_type: Path
+  prerequisites: '`royal-waterways-west` && `desolate-dive` && `simple-key` && `dream-nail`'
 
 # abilities
 vengeful-spirit:
@@ -93,6 +167,28 @@ desolate-dive:
   display_name: Desolate Dive
   item_type: Ability
   prerequisites: [soul-master]
+ismas-tear:
+  display_name: Isma's Tear
+  item_type: Ability
+  prerequisites: [dung-defender, royal-waterways-east]
+crystal-heart:
+  display_name: Crystal Heart
+  item_type: Ability
+  prerequisites: [crystal-peak]
+dream-nail:
+  display_name: Dream Nail
+  item_type: Ability
+  prerequisites: [resting-grounds]
+dream-gate:
+  display_name: Dream Gate
+  item_type: Ability
+  essence_cost: 900
+  prerequisites: [shop-seer]
+awoken-dream-nail:
+  display_name: Awoken Dream Nail
+  item_type: Ability
+  essence_cost: 1800
+  prerequisites: [shop-seer]
 
 # shops
 shop-jiji:
@@ -115,7 +211,7 @@ shop-salubra:
   display_name: Salubra's Shop
   item_type: Shop
   # TODO: double check how to cross the blue lake
-  prerequisites: '(`gruz-mother` && (`mothwing-cloak` || `mantis-claw`)) || `blue-lake`'
+  prerequisites: '(`gruz-mother` && (`mothwing-cloak` || `mantis-claw`)) || (`blue-lake` && `mantis-claw`)'
 bank:
   display_name: Millibelle's Bank
   item_type: Shop
@@ -134,6 +230,10 @@ shop-lemm:
   display_name: Lemm's Shop
   item_type: Shop
   prerequisites: [city-of-tears-west]
+shop-seer:
+  display_name: Seer's Shop
+  item_type: Shop
+  prerequisites: [dream-nail]
 
 # maps
 map-forgotten-crossroads:
@@ -159,7 +259,23 @@ map-fungal-wastes:
 map-city-of-tears:
   display_name: Map of City of Tears
   item_type: Map
+  geo_cost: 90
   prerequisites: [city-of-tears-west]
+map-fog-canyon:
+  display_name: Map of Fog Canyon
+  item_type: Map
+  geo_cost: 150
+  prerequisites: [fog-canyon-east]
+map-royal-waterways:
+  display_name: Map of Royal Waterways
+  item_type: Map
+  geo_cost: 75
+  prerequisites: [royal-waterways-west]
+map-crystal-peak:
+  display_name: Map of Crystal Peak
+  item_type: Map
+  geo_cost: 112
+  prerequisites: [crystal-peak]
 
 # stags
 stag-forgotten-crossroads:
@@ -186,6 +302,15 @@ stag-city-storerooms:
   item_type: Stag Station
   geo_cost: 200
   prerequisites: [city-storerooms]
+stag-kings-station:
+  display_name: Stag at King's Station
+  item_type: Stag Station
+  geo_cost: 300
+  prerequisites: [city-of-tears-east]
+stag-resting-grounds:
+  display_name: Stag at Resting Grounds
+  item_type: Stag Station
+  prerequisites: [resting-grounds]
 stag-howling-cliffs:
   display_name: Stag at Howling Cliffs
   item_type: Stag Station
@@ -201,6 +326,17 @@ simple-key-storerooms:
   display_name: Simple Key (city storerooms)
   item_type: Simple Key
   prerequisites: [city-storerooms]
+
+# pale ore
+pale-ore-hallownests-crown:
+  display_name: Pale Ore (Hallownest's Crown)
+  item_type: Pale Ore
+  prerequisites: [crystal-peak, mantis-claw, monarch-wings, crystal-heart]
+pale-ore-seer:
+  display_name: Pale Ore (from the Seer)
+  item_type: Pale Ore
+  essence_cost: 300
+  prerequisites: [shop-seer]
 
 # bosses
 false-knight:
@@ -251,12 +387,83 @@ soul-master:
   display_name: Soul Master
   item_type: Boss
   prerequisites: [soul-sanctum]
+uumuu:
+  display_name: Uumuu
+  item_type: Boss
+  prerequisites: [fog-canyon-east]
+watcher-knights:
+  display_name: Watcher Knights
+  item_type: Boss
+  prerequisites: [watchers-spire]
+collector:
+  display_name: Collector
+  item_type: Boss
+  prerequisites: [tower-of-love]
+dung-defender:
+  display_name: Dung Defender
+  item_type: Boss
+  prerequisites: [royal-waterways-west]
+flukemarm:
+  display_name: Flukemarm
+  item_type: Boss
+  prerequisites: [royal-waterways-west, desolate-dive]
+crystal-guardian:
+  display_name: Crystal Guardian
+  item_type: Boss
+  prerequisites: [crystal-peak]
+enraged-guardian:
+  display_name: Enraged Guardian
+  item_type: Boss
+  prerequisites: [crystal-guardian, monarch-wings]
+xero:
+  display_name: Xero
+  item_type: Boss
+  prerequisites: [resting-grounds, dream-nail]
+
+# dreamers
+dreamer-monomon:
+  display_name: Dreamer Monomon
+  item_type: Singleton
+  prerequisites: [uumuu, dream-nail]
+dreamer-lurien:
+  display_name: Dreamer Lurien
+  item_type: Singleton
+  prerequisites: [watcher-knights, dream-nail]
 
 # mask shards
 mask-shard-fcr-hot-springs:
   display_name: Mask Shard (near hot springs of Forgotten Crossroads)
   item_type: Upgrade
   prerequisites: [mantis-claw]
+mask-shard-queens-station:
+  display_name: Mask Shard (Queen's Station)
+  item_type: Upgrade
+  prerequisites: '`mantis-claw` && (`fog-canyon-west` || `fungal-wastes`)'
+mask-shard-mantis-village:
+  display_name: Mask Shard (near mantis village)
+  item_type: Upgrade
+  prerequisites: [fungal-wastes, monarch-wings]
+mask-shard-bretta:
+  display_name: Mask Shard (Bretta's house)
+  item_type: Upgrade
+  prerequisites: [dirtmouth, find-bretta]
+mask-shard-royal-waterways-west:
+  display_name: Mask Shard (Royal Waterways west)
+  item_type: Upgrade
+  prerequisites: [royal-waterways-west]
+mask-shard-crystal-guardian:
+  display_name: Mask Shard (Crystal/Enraged Guardian)
+  item_type: Upgrade
+  prerequisites: [enraged-guardian]
+mask-shard-seer:
+  display_name: Mask Shard (from the Seer)
+  item_type: Upgrade
+  essence_cost: 1500
+  prerequisites: [shop-seer]
+mask-shard-delicate-flower-quest:
+  display_name: Mask Shard (Delicate Flower Quest)
+  item_type: Upgrade
+  prerequisites: [delicate-flower-quest]
 
 # charms
 fury-of-the-fallen:
@@ -372,6 +579,31 @@ nailmasters-glory:
   display_name: Nailmaster's Glory
   item_type: Charm
   prerequisites: [cyclone-slash, great-slash, dash-slash, shop-sly]
+defenders-crest:
+  display_name: Defender's Crest
+  item_type: Charm
+  prerequisites: [dung-defender]
+flukenest:
+  display_name: Flukenest
+  item_type: Charm
+  prerequisites: [flukemarm]
+deep-focus:
+  display_name: Deep Focus
+  item_type: Charm
+  prerequisites: [crystal-peak, crystal-heart]
+dream-wielder:
+  display_name: Dream Wielder
+  item_type: Charm
+  essence_cost: 500
+  prerequisites: [shop-seer]
+dreamshield:
+  display_name: Dreamshield
+  item_type: Charm
+  prerequisites: [resting-grounds]
+soul-eater:
+  display_name: Soul Eater
+  item_type: Charm
+  prerequisites: [resting-grounds-crypts]
 
 # assorted
 hunters-journal:
@@ -527,6 +759,10 @@ charm-notch-shrumal-ogres:
   display_name: Charm Notch (Shrumal Ogres)
   item_type: Upgrade
   prerequisites: [shrumal-ogres]
+collectors-map:
+  display_name: Collector's Map
+  item_type: Upgrade
+  prerequisites: [collector]
 ## nail upgrades
 nail-upgrade-1:
   display_name: Nail Upgrade 1
@@ -537,27 +773,31 @@ nail-upgrade-2:
   display_name: Nail Upgrade 2
   item_type: Upgrade
   geo_cost: 800
-  prerequisites: '`shop-nailsmith` && (sum(id_.startswith("pale-ore-") for id_ in items_completed_ids) >= 1)'
+  prerequisites: '`shop-nailsmith` && (sum(item.item_type == "Pale Ore" for item in items_completed) >= 1)'
 nail-upgrade-3:
   display_name: Nail Upgrade 3
   item_type: Upgrade
   geo_cost: 2000
-  prerequisites: '`shop-nailsmith` && (sum(id_.startswith("pale-ore-") for id_ in items_completed_ids) >= 3)'
+  prerequisites: '`shop-nailsmith` && (sum(item.item_type == "Pale Ore" for item in items_completed) >= 3)'
 nail-upgrade-4:
   display_name: Nail Upgrade 4
   item_type: Upgrade
   geo_cost: 4000
-  prerequisites: '`shop-nailsmith` && (sum(id_.startswith("pale-ore-") for id_ in items_completed_ids) >= 6)'
+  prerequisites: '`shop-nailsmith` && (sum(item.item_type == "Pale Ore" for item in items_completed) >= 6)'
 ## spell upgrades
 shade-soul:
   display_name: Shade Soul
   item_type: Upgrade
   prerequisites: [soul-sanctum, elegant-key]
+descending-dark:
+  display_name: Descending Dark
+  item_type: Upgrade
+  prerequisites: [crystal-peak, lantern, crystal-heart]
 ## nail arts
 great-slash:
   display_name: Great Slash
   item_type: Upgrade
-  prerequisites: [greenpath, crystal-heart]
+  prerequisites: '`greenpath` && (`crystal-heart` || `monarch-wings`)'
 cyclone-slash:
   display_name: Cyclone Slash
   item_type: Upgrade
@@ -569,30 +809,50 @@ zote-greenpath:
   item_type: Singleton
   prerequisites: [greenpath-west]
 ## one-offs
+hollow-knight-fountain:
+  display_name: Fountain of the Hollow Knight
+  item_type: Singleton
+  prerequisites: [city-of-tears-west]
 vessel-fragment-last-stag:
   display_name: Vessel Fragment (last stag station)
   item_type: Upgrade
   prerequisites: [stag-howling-cliffs]
-mask-shard-queens-station:
-  display_name: Mask Shard (Queen's Station)
-  item_type: Upgrade
-  prerequisites: [fog-canyon-west, mantis-claw]
 find-bretta:
   display_name: Find Bretta
   item_type: Singleton
   prerequisites: [fungal-wastes, mantis-claw]
-mask-shard-mantis-town:
-  display_name: Mask Shard (near mantis town)
-  item_type: Upgrade
-  prerequisites: [fungal-wastes, monarch-wings]
 vessel-fragment-above-city-storerooms:
   display_name: Vessel Fragment (City Storerooms lift)
   item_type: Upgrade
   prerequisites: [city-storerooms]
-mask-shard-bretta:
-  display_name: Mask Shard (Bretta's house)
+charm-notch-ne-fog-canyon:
+  display_name: Charm Notch (NE Fog Canyon)
   item_type: Upgrade
-  prerequisites: [dirtmouth, find-bretta]
+  prerequisites: [fog-canyon-east, ismas-tear]
+vessel-fragment-cot-east:
+  display_name: Vessel Fragment (City of Tears east)
+  item_type: Upgrade
+  prerequisites: [city-of-tears-east]
+love-key:
+  display_name: Love Key
+  item_type: Singleton
+  prerequisites: [queens-gardens, ismas-tear]
+shopkeepers-key:
+  display_name: Shopkeeper's Key
+  item_type: Singleton
+  prerequisites: [crystal-peak]
+vessel-fragment-seer:
+  display_name: Vessel Fragment (from the Seer)
+  item_type: Upgrade
+  essence_cost: 700
+  prerequisites: [shop-seer]
+delicate-flower-quest:
+  display_name: Delicate Flower Quest
+  item_type: Singleton
+  prerequisites: |
+    `resting-grounds-crypts` && (
+      `blue-lake` && `city-storerooms` && `fungal-wastes` && `fog-canyon-west` && `ismas-tear` && `queens-gardens`
+    )
 
 
 #desolate-dive:
@@ -605,8 +865,6 @@ mask-shard-bretta:
 #  item_type: Ability
 #  pre
 #crystal-heart:
-#shopkeepers-key:
 #shadow-dash:
-#ismas-tear:
 #queens-gardens:
 #grimm-troupe:
