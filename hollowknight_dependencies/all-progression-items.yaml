@@ -37,7 +37,7 @@ fog-canyon-west:
 fog-canyon-east:
   display_name: Fog Canyon (east)
   item_type: Path
-  prerequisites: '(`fog-canyon-west` && `shadow-dash`) || `ismas-tear`'
+  prerequisites: '(`fog-canyon-west` && `shade-cloak`) || `ismas-tear`'
 
 fungal-wastes:
   display_name: Fungal Wastes
@@ -110,31 +110,47 @@ blue-lake:
 deepnest:
   display_name: Deepnest
   item_type: Path
-  prerequisites: '`mantis-lords` || (`fungal-wastes` && `monarch-wings`) || `queens-gardens`'
+  prerequisites: '`lantern` && (`mantis-lords` || (`fungal-wastes` && `monarch-wings`) || `queens-gardens`)'
+
+queens-gardens:
+  display_name: Queen's Gardens
+  item_type: Path
+  prerequisites: '(`fog-canyon-west` && (`shade-cloak` || `ismas-tear`)) || (`deepnest` && `monarch-wings`)'
 
 kingdoms-edge:
   display_name: Kingdom's Edge
   item_type: Path
-  prerequisites: [TODO]
-
+  prerequisites: '`city-of-tears-east` || `kingdoms-edge-sw`'
 kingdoms-edge-sw:
   display_name: Kingdom's Edge (SW corner)
   item_type: Path
-  prerequisites: [TODO]
-
+  prerequisites: [ancient-basin, tram-pass]
 hive:
   display_name: Hive
   item_type: Path
-  prerequisites: [TODO]
+  prerequisites: [kingdoms-edge-sw, monarch-wings]
+colosseum-of-fools:
+  display_name: Colosseum of Fools
+  item_type: Path
+  prerequisites: [kingdoms-edge]
 
+ancient-basin:
+  display_name: Ancient Basin
+  item_type: Path
+  prerequisites: '`dung-defender` || `city-of-tears-east` || (`deepnest` && `tram-pass`)'
 palace-grounds:
   display_name: Palace Grounds
   item_type: Path
-  prerequisites: [TODO]
+  prerequisites: [broken-vessel, monarch-wings]
 white-palace:
   display_name: White Palace
   item_type: Path
   prerequisites: [awoken-dream-nail, palace-grounds]
+
+abyss:
+  display_name: Abyss
+  item_type: Path
+  prerequisites: [ancient-basin, kings-brand]
 
 godhome:
   display_name: Godhome
@@ -189,6 +205,18 @@ awoken-dream-nail:
   item_type: Ability
   essence_cost: 1800
   prerequisites: [shop-seer]
+tram-pass:
+  display_name: Tram Pass
+  item_type: Ability
+  prerequisites: [deepnest]
+monarch-wings:
+  display_name: Monarch Wings
+  item_type: Ability
+  prerequisites: [broken-vessel]
+shade-cloak:
+  display_name: Shade Cloak
+  item_type: Ability
+  prerequisites: [abyss]
 
 # shops
 shop-jiji:
@@ -210,7 +238,6 @@ shop-grubfather:
 shop-salubra:
   display_name: Salubra's Shop
   item_type: Shop
-  # TODO: double check how to cross the blue lake
   prerequisites: '(`gruz-mother` && (`mothwing-cloak` || `mantis-claw`)) || (`blue-lake` && `mantis-claw`)'
 bank:
   display_name: Millibelle's Bank
@@ -276,6 +303,30 @@ map-crystal-peak:
   item_type: Map
   geo_cost: 112
   prerequisites: [crystal-peak]
+map-resting-grounds:
+  display_name: Map of Resting Grounds
+  item_type: Map
+  prerequisites: [resting-grounds]
+map-deepnest:
+  display_name: Map of Deepnest
+  item_type: Map
+  geo_cost: 38
+  prerequisites: [deepnest]
+map-queens-gardens:
+  display_name: Map of Queen's Gardens
+  item_type: Map
+  geo_cost: 150
+  prerequisites: [queens-gardens]
+map-kingdoms-edge:
+  display_name: Map of Kingdom's Edge
+  item_type: Map
+  geo_cost: 112
+  prerequisites: [kingdoms-edge]
+map-ancient-basin:
+  display_name: Map of Ancient Basin
+  item_type: Map
+  geo_cost: 112
+  prerequisites: [ancient-basin]
 
 # stags
 stag-forgotten-crossroads:
@@ -311,6 +362,21 @@ stag-resting-grounds:
   display_name: Stag at Resting Grounds
   item_type: Stag Station
   prerequisites: [resting-grounds]
+stag-distant-village:
+  display_name: Stag at Distant Village (Deepnest)
+  item_type: Stag Station
+  geo_cost: 250
+  prerequisites: [deepnest]
+stag-queens-gardens:
+  display_name: Stag at Queens Gardens
+  item_type: Stag Station
+  geo_cost: 200
+  prerequisites: [queens-gardens]
+stag-hidden-station:
+  display_name: Stag at Hidden Station (Ancient Basin)
+  item_type: Stag Station
+  geo_cost: 300
+  prerequisites: [palace-grounds]
 stag-howling-cliffs:
   display_name: Stag at Howling Cliffs
   item_type: Stag Station
@@ -326,6 +392,14 @@ simple-key-storerooms:
   display_name: Simple Key (city storerooms)
   item_type: Simple Key
   prerequisites: [city-storerooms]
+simple-key-pale-lurker:
+  display_name: Simple Key (Pale Lurker)
+  item_type: Simple Key
+  prerequisites: [pale-lurker]
+simple-key-ancient-basin:
+  display_name: Simple Key (Ancient Basin)
+  item_type: Simple Key
+  prerequisites: [ancient-basin, crystal-heart]
 
 # pale ore
 pale-ore-hallownests-crown:
@@ -337,6 +411,44 @@ pale-ore-seer:
   item_type: Pale Ore
   essence_cost: 300
   prerequisites: [shop-seer]
+pale-ore-nosk:
+  display_name: Pale Ore (Nosk)
+  item_type: Pale Ore
+  prerequisites: [nosk]
+pale-ore-cof:
+  display_name: Pale Ore (Trial of the Conqueror)
+  item_type: Pale Ore
+  prerequisites: [colosseum-of-fools-2]
+pale-ore-ancient-basin:
+  display_name: Pale Ore (Ancient Basin)
+  item_type: Pale Ore
+  prerequisites: [ancient-basin]
+pale-ore-grubs:
+  display_name: Pale Ore (Grubs)
+  item_type: Pale Ore
+  grub_cost: 31
+  prerequisites: [forgotten-crossroads]
+
+# Colosseum of Fools
+colosseum-of-fools-1:
+  display_name: Trial of the Warrior
+  item_type: Boss
+  geo_cost: 100
+  prerequisites: [colosseum-of-fools]
+charm-notch-cof-1:
+  display_name: Charm Notch (Trial of the Warrior)
+  item_type: Upgrade
+  prerequisites: [colosseum-of-fools-1]
+colosseum-of-fools-2:
+  display_name: Trial of the Conqueror
+  item_type: Boss
+  geo_cost: 450
+  prerequisites: [colosseum-of-fools-1]
+colosseum-of-fools-3:
+  display_name: Trial of the Fool
+  item_type: Boss
+  geo_cost: 800
+  prerequisites: [colosseum-of-fools-2]
 
 # bosses
 false-knight:
@@ -419,6 +531,42 @@ xero:
   display_name: Xero
   item_type: Boss
   prerequisites: [resting-grounds, dream-nail]
+nosk:
+  display_name: Nosk
+  item_type: Boss
+  prerequisites: '`deepnest` && (`crystal-heart` || `monarch-wings`)'
+galien:
+  display_name: Galien
+  item_type: Boss
+  prerequisites: [deepnest, dream-nail]
+marmu:
+  display_name: Marmu
+  item_type: Boss
+  prerequisites: [queens-gardens, dream-nail]
+traitor-lord:
+  display_name: Traitor Lord
+  item_type: Boss
+  prerequisites: [queens-gardens, shade-cloak]
+hive-knight:
+  display_name: Hive Knight
+  item_type: Boss
+  prerequisites: [hive]
+markoth:
+  display_name: Markoth
+  item_type: Boss
+  prerequisites: [kingdoms-edge, shade-cloak, dream-nail]
+hornet-kingdoms-edge:
+  display_name: Hornet (Kingdom's Edge)
+  item_type: Boss
+  prerequisites: [kingdoms-edge, monarch-wings]
+pale-lurker:
+  display_name: Pale Lurker
+  item_type: Boss
+  prerequisites: [colosseum-of-fools, mantis-claw]
+broken-vessel:
+  display_name: Broken Vesel
+  item_type: Boss
+  prerequisites: [ancient-basin, crystal-heart]
 
 # dreamers
 dreamer-monomon:
@@ -429,6 +577,20 @@ dreamer-lurien:
   display_name: Dreamer Lurien
   item_type: Singleton
   prerequisites: [watcher-knights, dream-nail]
+dreamer-herrah:
+  display_name: Dreamer Herrah
+  item_type: Singleton
+  prerequisites: [deepnest, dream-nail]
+
+# finale
+world-sense:
+  display_name: World Sense
+  item_type: Ability
+  prerequisites: [forgotten-crossroads, dreamer-monomon, dreamer-lurien, dreamer-herrah]
+hollow-knight:
+  display_name: Hollow Knight / Radiance
+  item_type: Boss
+  prerequisites: [forgotten-crossroads, dreamer-monomon, dreamer-lurien, dreamer-herrah]
 
 # mask shards
 mask-shard-fcr-hot-springs:
@@ -464,6 +626,15 @@ mask-shard-delicate-flower-quest:
   display_name: Mask Shard (Delicate Flower Quest)
   item_type: Upgrade
   prerequisites: [delicate-flower-quest]
+mask-shard-hive:
+  display_name: Mask Shard (Hive)
+  item_type: Upgrade
+  prerequisites: [hive]
+mask-shard-grubs:
+  display_name: Mask Shard (Grubs)
+  item_type: Upgrade
+  grub_cost: 5
+  prerequisites: [forgotten-crossroads]
 
 # charms
 fury-of-the-fallen:
@@ -604,6 +775,77 @@ soul-eater:
   display_name: Soul Eater
   item_type: Charm
   prerequisites: [resting-grounds-crypts]
+sharp-shadow:
+  display_name: Sharp Shadow
+  item_type: Charm
+  prerequisites: [deepnest, shade-cloak]
+weaversong:
+  display_name: Weaversong
+  item_type: Charm
+  prerequisites: [deepnest]
+hiveblood:
+  display_name: Hiveblood
+  item_type: Charm
+  prerequisites: [hive-knight]
+quickslash:
+  display_name: Quickslash
+  item_type: Charm
+  prerequisites: [kingdoms-edge, desolate-dive]
+lifeblood-core:
+  display_name: Lifeblood Core
+  item_type: Charm
+  prerequisites: [abyss, jonis-blessing]
+grubsong:
+  display_name: Grubsong
+  item_type: Charm
+  grub_cost: 10
+  prerequisites: [forgotten-crossroads]
+grubberflys-elegy:
+  display_name: Grubberfly's Elegy
+  item_type: Charm
+  grub_cost: 46
+  prerequisites:
+    - mothwing-cloak
+    - mantis-claw
+    - monarch-wings
+    - crystal-heart
+    - ismas-tear
+    - desolate-dive
+    - forgotten-crossroads
+    - greenpath
+    - moss-knight
+    - fungal-wastes
+    - city-of-tears-west
+    - city-of-tears-east
+    - crystal-peak
+    - resting-grounds
+    - royal-waterways-west
+    - royal-waterways-east
+    - howling-cliffs
+    - kingdoms-edge
+    - fog-canyon-east
+    - queens-gardens
+    - deepnest
+    - ancient-basin
+    - hive
+    - collector
+
+kingsoul-a:
+  display_name: Kingsoul (part A)
+  item_type: Singleton
+  prerequisites: [traitor-lord]
+kingsoul-b:
+  display_name: Kingsoul (part B)
+  item_type: Singleton
+  prerequisites: [white-palace]
+kingsoul:
+  display_name: Kingsoul
+  item_type: Charm
+  prerequisites: [kingsoul-a, kingsoul-b]
+void-heart:
+  display_name: Void Heart
+  item_type: Upgrade
+  prerequisites: [kingsoul, abyss, dream-nail]
 
 # assorted
 hunters-journal:
@@ -735,7 +977,7 @@ charm-notch-salubra-4:
   prerequisites: '`shop-salubra` && (count_charms(items_completed) >= 25)'
 salubras-blessing:
   display_name: Salubra's Blessing
-  item_type: Charm
+  item_type: Upgrade
   geo_cost: 800
   prerequisites: '`shop-salubra` && (count_charms(items_completed) >= 40)'
 ## from bosses
@@ -763,6 +1005,10 @@ collectors-map:
   display_name: Collector's Map
   item_type: Upgrade
   prerequisites: [collector]
+kings-brand:
+  display_name: King's Brand
+  item_type: Singleton
+  prerequisites: [hornet-kingdoms-edge]
 ## nail upgrades
 nail-upgrade-1:
   display_name: Nail Upgrade 1
@@ -793,6 +1039,10 @@ descending-dark:
   display_name: Descending Dark
   item_type: Upgrade
   prerequisites: [crystal-peak, lantern, crystal-heart]
+abyss-shriek:
+  display_name: Abyss Shriek
+  item_type: Upgrade
+  prerequisites: [howling-wraiths, abyss]
 ## nail arts
 great-slash:
   display_name: Great Slash
@@ -802,12 +1052,28 @@ cyclone-slash:
   display_name: Cyclone Slash
   item_type: Upgrade
   prerequisites: [howling-cliffs]
-#dash-slash:
+dash-slash:
+  display_name: Dash Slash
+  item_type: Upgrade
+  geo_cost: 800
+  prerequisites: [kingdoms-edge]
 ## Zote
 zote-greenpath:
-  display_name: Zote (greenpath)
+  display_name: Zote (Greenpath)
   item_type: Singleton
   prerequisites: [greenpath-west]
+zote-deepnest:
+  display_name: Zote (Deepnest)
+  item_type: Singleton
+  prerequisites: [deepnest, zote-greenpath]
+zote-colosseum:
+  display_name: Zote (Colosseum)
+  item_type: Singleton
+  prerequisites: [zote-deepnest, colosseum-of-fools-1]
+grey-prince-zote:
+  display_name: Grey Prince Zote
+  item_type: Boss
+  prerequisites: [zote-colosseum, find-bretta, monarch-wings, dream-nail]
 ## one-offs
 hollow-knight-fountain:
   display_name: Fountain of the Hollow Knight
@@ -828,7 +1094,7 @@ vessel-fragment-above-city-storerooms:
 charm-notch-ne-fog-canyon:
   display_name: Charm Notch (NE Fog Canyon)
   item_type: Upgrade
-  prerequisites: [fog-canyon-east, ismas-tear]
+  prerequisites: '`fog-canyon-east` && (`ismas-tear` || `monarch-wings`)'
 vessel-fragment-cot-east:
   display_name: Vessel Fragment (City of Tears east)
   item_type: Upgrade
@@ -851,20 +1117,20 @@ delicate-flower-quest:
   item_type: Singleton
   prerequisites: |
     `resting-grounds-crypts` && (
-      `blue-lake` && `city-storerooms` && `fungal-wastes` && `fog-canyon-west` && `ismas-tear` && `queens-gardens`
+      (`blue-lake` && `city-storerooms` && `fungal-wastes` && `fog-canyon-west` && `ismas-tear` && `queens-gardens`)
+      || (`tram-pass` && !`infected-crossroads` && `ismas-tear` && `fog-canyon-east` && `queens-gardens`)
     )
+vessel-fragment-deepnest:
+  display_name: Vessel Fragment (deepnest)
+  item_type: Upgrade
+  prerequisites: [deepnest, mantis-claw, mothwing-cloak]
+vessel-fragment-ancient-basin:
+  display_name: Vessel Fragment (Ancient Basin)
+  item_type: Upgrade
+  geo_cost: 3000
+  prerequisites: [ancient-basin]
 
 
-#desolate-dive:
-#dream-nail:
-#  display_name: Dream Nail
-#  item_type: Ability
-#  pre
-#tram-pass:
-#  display_name: Tram Pass
-#  item_type: Ability
-#  pre
-#crystal-heart:
-#shadow-dash:
-#queens-gardens:
-#grimm-troupe:
+# TODO:
+# grimm-troupe
+# secondary boss forms (e.g. dung defender -> white defender)
