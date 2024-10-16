@@ -1,20 +1,13 @@
 from contextlib import asynccontextmanager
-from typing import Annotated
+from pathlib import Path
 
-from fastapi import Depends, FastAPI, status as http_status
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI, status as http_status
+from fastapi.responses import JSONResponse, RedirectResponse
+from fastapi.staticfiles import StaticFiles
 
-from hollowknight_dependencies.db_interface import DbInterface, ItemNotDefinedError, PrerequisiteViolationError
-from hollowknight_dependencies.models import ALL_PROGRESSION_ITEMS, AllProgressionItemsType, Progress
-from hollowknight_dependencies.prerequisites import analyze_progress
-
-
-async def get_db():
-    async with DbInterface.managed("progress.db") as db:
-        yield db
-
-
-DbInterfaceDep = Annotated[DbInterface, Depends(get_db)]
+from hollowknight_dependencies.api_deps import get_db
+from hollowknight_dependencies.db_interface import ItemNotDefinedError, PrerequisiteViolationError
+from hollowknight_dependencies.router_api import router as router_api
 
 
 @asynccontextmanager
@@ -49,32 +42,18 @@ async def handle_db_prerequisite_violation_error(_, exc: PrerequisiteViolationEr
     )
 
 
-@api.get("/")
-async def get_root():
-    return {"service": "hollowknight-dependencies"}
+api.include_router(router_api)
 
 
-@api.get("/all-item-definitions")
-async def get_all_item_definitions() -> AllProgressionItemsType:
-    return ALL_PROGRESSION_ITEMS
+# serve user-facing app files
+api.mount("/app", StaticFiles(directory=Path("client/dist")), name="static")
+# set up redirects to the user-facing homepage
+_app_homepage = RedirectResponse(url="/app/index.html")
+for _path_to_app in ("/", "/app"):
 
-
-@api.get("/current-progress")
-async def get_current_progress(db: DbInterfaceDep) -> Progress:
-    items_completed = await db.query_completed_progress_items()
-    return analyze_progress(items_completed)
-
-
-@api.post("/mark-item-completed")
-async def mark_item_completed(progress_item_id: str, db: DbInterfaceDep) -> Progress:
-    items_completed = await db.mark_progress_item_completed(progress_item_id)
-    return analyze_progress(items_completed)
-
-
-@api.post("/reset")
-async def reset(db: DbInterfaceDep) -> Progress:
-    await db.reset_all_progress()
-    return analyze_progress(set())
+    @api.get(_path_to_app, tags=["app"])
+    async def get_app() -> RedirectResponse:
+        return _app_homepage
 
 
 def run_dev():

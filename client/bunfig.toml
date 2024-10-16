@@ -1,0 +1,3 @@
+[install.lockfile]
+# also save a non-Bun lockfile alongside bun.lockb for dependabot to read
+print = "yarn"
