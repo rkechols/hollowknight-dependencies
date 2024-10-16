@@ -59,7 +59,7 @@ for _path_to_app in ("/", "/app"):
 def run_dev():
     import uvicorn
 
-    uvicorn.run("hollowknight_dependencies.server:api", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("hollowknight_dependencies.server:api", host="0.0.0.0", port=8000, reload=True, reload_includes="client/dist/")
 
 
 if __name__ == "__main__":

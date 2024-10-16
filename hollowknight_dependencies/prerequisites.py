@@ -63,5 +63,5 @@ def analyze_progress(items_completed_ids: set[str]) -> Progress:
     return Progress(
         items_completed=items_completed_ids,
         items_available=items_available,
-        items_blocked=items_blocked,
+        items_locked=items_blocked,
     )

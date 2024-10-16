@@ -46,13 +46,13 @@ ALL_PROGRESSION_ITEMS = RootModel[AllProgressionItemsType].model_validate(_all_p
 class Progress(BaseModel):
     items_completed: set[str]
     items_available: set[str]
-    items_blocked: set[str]
+    items_locked: set[str]
 
     @model_validator(mode="after")
     def validate_completeness(self) -> Self:
         all_ids = set(ALL_PROGRESSION_ITEMS.keys())
         # check that no items are left out, and that none are extraneous/undefined
-        union = self.items_completed | self.items_available | self.items_blocked
+        union = self.items_completed | self.items_available | self.items_locked
         if len(missing := all_ids - union) > 0:
             raise ValueError(f"`Progress` should partition item IDs; some IDs are missing: {sorted(missing)}")
         elif len(extra := union - all_ids) > 0:
@@ -60,7 +60,7 @@ class Progress(BaseModel):
         # else: all IDs are listed
         # check that no items are in multiple sets
         duplicated = set()
-        for set1, set2 in itertools.combinations((self.items_completed, self.items_available, self.items_blocked), 2):
+        for set1, set2 in itertools.combinations((self.items_completed, self.items_available, self.items_locked), 2):
             duplicated.update(set1 & set2)
         if len(duplicated) > 0:
             raise ValueError(f"`Progress` should partition item IDs; some IDs were duplicated: {sorted(duplicated)}")
