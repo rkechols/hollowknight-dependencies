@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react"
 import ChecklistColumn from "./ChecklistColumn"
 import "./DependencyChecklist.css"
-import { GameProgress, ProgressionItemsMap } from "../models"
+import { GameProgress, ItemStatus, ProgressionItemsMap } from "../models"
 import { getCurrentProgress, resetAllProgress } from "../ApiInterface"
 import { useProgressionItemsMapContext } from "../contexts/ProgressionItemsMapContext"
 import Popup from "./Popup"
@@ -20,15 +20,15 @@ function DependencyChecklistColumns(props: {
   return (
     <div className="columns-box">
       <div className="column"><ChecklistColumn
-        title="Locked"
+        status={ItemStatus.Locked}
         checklistItems={lockedItems}
       /></div>
       <div className="column"><ChecklistColumn
-        title="Available"
+        status={ItemStatus.Available}
         checklistItems={availableItems}
       /></div>
       <div className="column"><ChecklistColumn
-        title="Completed"
+        status={ItemStatus.Completed}
         checklistItems={completedItems}
       /></div>
     </div>

@@ -1,26 +1,29 @@
-import { ProgressionItem } from "../models"
-
-function ChecklistItems(props: { items: ProgressionItem[] }) {
-  if (props.items.length === 0) {
-    return <p>(None)</p>
-  }
-  return (
-    <ul>
-      {props.items.map((item, index) => (
-        <li key={index}>{item.display_name}</li>
-      ))}
-    </ul>
-  )
-}
+import { ItemStatus, itemStatusToString, ProgressionItem } from "../models"
+import ItemDetailCard from "./ItemDetailCard"
 
 function ChecklistColumn(props: {
-  title: string;
+  status: ItemStatus;
   checklistItems: ProgressionItem[];
 }) {
+  const { status, checklistItems } = props
+
+  let content
+  if (checklistItems.length === 0) {
+    content = <p>(None)</p>
+  } else {
+    content = (
+      <div>
+        {checklistItems.map((item, index) => (
+          <ItemDetailCard key={index} status={status} item={item}/>
+        ))}
+      </div>
+    )
+  }
+
   return (
     <>
-      <h2>{props.title}</h2>
-      <ChecklistItems items={props.checklistItems} />
+      <h2>{itemStatusToString(status)}</h2>
+      {content}
     </>
   )
 }

@@ -1,3 +1,13 @@
+export enum ItemStatus {
+  Locked,
+  Available,
+  Completed,
+}
+
+export function itemStatusToString(itemStatus: ItemStatus): string {
+  return ItemStatus[itemStatus]
+}
+
 export enum ItemType {
   "Ability",
   "Boss",
