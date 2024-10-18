@@ -31,6 +31,7 @@ class ProgressionItem(BaseModel):
     grub_cost: int | None = None
     essence_cost: int | None = None
     prerequisites: PrerequisiteSpec
+    required: bool = False
 
 
 AllProgressionItemsType = dict[str, ProgressionItem]
