@@ -39,6 +39,15 @@
   align-items: center;
 }
 
+.hypotheticals {
+  text-align: start;
+}
+
+.hypotheticals > ul {
+  margin-block: 0;
+  padding-inline-start: 24px;
+}
+
 .completion-button {
   height: fit-content;
   width: fit-content;

@@ -39,6 +39,14 @@ export interface ProgressionItem {
   required: boolean
 }
 
+export function itemFullDisplayName(item: ProgressionItem): string {
+  let displayName = item.display_name
+  if (item.item_type == itemTypeToString(ItemType.Charm) || item.item_type == itemTypeToString(ItemType.Boss)) {
+    displayName = `${item.item_type} - ${displayName}`
+  }
+  return displayName
+}
+
 export interface ProgressionItemsMap {
   [id: string]: ProgressionItem
 }
@@ -47,4 +55,5 @@ export interface GameProgress {
   items_locked: string[]
   items_available: string[]
   items_completed: string[]
+  hypotheticals: { [id: string]: string[] }
 }

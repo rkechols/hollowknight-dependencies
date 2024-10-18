@@ -36,16 +36,19 @@ function DependencyChecklistColumns(props: {
         status={ItemStatus.Locked}
         checklistItems={lockedItems}
         setGameProgress={setGameProgress}
+        hypotheticals={gameProgress.hypotheticals}
       /></div>
       <div className="column"><ChecklistColumn
         status={ItemStatus.Available}
         checklistItems={availableItems}
         setGameProgress={setGameProgress}
+        hypotheticals={gameProgress.hypotheticals}
       /></div>
       <div className="column"><ChecklistColumn
         status={ItemStatus.Completed}
         checklistItems={completedItems}
         setGameProgress={setGameProgress}
+        hypotheticals={null}
       /></div>
     </div>
   )

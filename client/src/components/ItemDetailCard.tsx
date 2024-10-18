@@ -1,15 +1,17 @@
-import { GameProgress, ItemStatus, ItemType, itemTypeToString, ProgressionItem } from "../models"
+import { GameProgress, itemFullDisplayName, ItemStatus, ProgressionItem } from "../models"
 import "./ItemDetailCard.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCheckCircle, faStar } from "@fortawesome/free-solid-svg-icons"
 import { markItemCompleted } from "../ApiInterface"
+import { useProgressionItemsMapContext } from "../contexts/ProgressionItemsMapContext"
 
 function ItemDetailCard(props: {
   status: ItemStatus;
   item: ProgressionItem;
   setGameProgress: (gp: GameProgress) => void;
+  hypotheticals: string[] | undefined;
 }) {
-  const { status, item, setGameProgress } = props
+  const { status, item, setGameProgress, hypotheticals } = props
 
   const onClickCompleted = async () => {
     let result
@@ -24,16 +26,44 @@ function ItemDetailCard(props: {
 
   const requiredIcon = item.required ? <FontAwesomeIcon icon={faStar} className="required-icon" /> : null
 
-  let displayName = item.display_name
-  if (item.item_type == itemTypeToString(ItemType.Charm) || item.item_type == itemTypeToString(ItemType.Boss)) {
-    displayName = `${item.item_type} - ${displayName}`
+  let costText
+  if (status == ItemStatus.Completed) {
+    costText = null
+  } else {
+    const costTextStrings = []
+    if (item.geo_cost) { costTextStrings.push(`Geo Price: ${item.geo_cost}`) }
+    if (item.grub_cost) { costTextStrings.push(`Grubs Needed: ${item.grub_cost}`) }
+    if (item.essence_cost) { costTextStrings.push(`Essence Needed: ${item.essence_cost}`) }
+    costText = costTextStrings.length === 0 ? null : <p className="item-summary-text">{costTextStrings.join("\n")}</p>
   }
 
-  const costTexts = []
-  if (item.geo_cost) { costTexts.push(`Geo Price: ${item.geo_cost}`) }
-  if (item.grub_cost) { costTexts.push(`Grubs Needed: ${item.grub_cost}`) }
-  if (item.essence_cost) { costTexts.push(`Essence Needed: ${item.essence_cost}`) }
-  const summaryText = costTexts.length === 0 ? null : <p className="item-summary-text">{costTexts.join("\n")}</p>
+  const { progressionItemsMap } = useProgressionItemsMapContext()
+  let hypotheticalsList
+  if (hypotheticals && progressionItemsMap) {
+    let hypotheticalsHeaderText
+    if (status == ItemStatus.Locked) {
+      hypotheticalsHeaderText = "Blockers:"
+    } else if (status == ItemStatus.Available) {
+      hypotheticalsHeaderText = "This will unlock:"
+    } else {
+      console.error(`Unexpected status ${status} for hypotheticals ${hypotheticals}`)
+      hypotheticalsHeaderText = ""
+    }
+    const hypotheticalsDisplayNames = hypotheticals.map((otherItemId) => itemFullDisplayName(progressionItemsMap[otherItemId]))
+    hypotheticalsDisplayNames.sort()
+    hypotheticalsList = (
+      <div className="hypotheticals">
+        {hypotheticalsHeaderText}
+        <ul>
+          {hypotheticalsDisplayNames.map((otherItemName, index) => (
+            <li key={index}>{otherItemName}</li>
+          ))}
+        </ul>
+      </div>
+    )
+  } else {
+    hypotheticalsList = null
+  }
 
   const completionButton = (
     <button className="completion-button" onClick={onClickCompleted}>
@@ -46,9 +76,10 @@ function ItemDetailCard(props: {
     <div className="item-detail-card-contents">
       <div className="item-detail-card-contents-header">
         {requiredIcon}
-        <b>{displayName}</b>
+        <b>{itemFullDisplayName(item)}</b>
       </div>
-      {summaryText}
+      {costText}
+      {hypotheticalsList}
     </div>
     {(status == ItemStatus.Available) ? completionButton : null}
   </div>
