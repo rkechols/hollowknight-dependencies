@@ -1,7 +1,7 @@
 import { GameProgress, ItemStatus, ProgressionItem } from "../models"
 import "./ItemDetailCard.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons"
+import { faCheckCircle, faStar } from "@fortawesome/free-solid-svg-icons"
 import { markItemCompleted } from "../ApiInterface"
 
 function ItemDetailCard(props: {
@@ -22,14 +22,18 @@ function ItemDetailCard(props: {
     setGameProgress(result)
   }
 
+  const requiredIcon = item.required ? <FontAwesomeIcon icon={faStar} /> : null
+
   const completionButton = (
     <button className="completion-button" onClick={onClickCompleted}>
       <FontAwesomeIcon icon={faCheckCircle}/>
     </button>
   )
 
-  return <div className="item-detail-card">
+  const mainDivClassname = "item-detail-card" + (item.required ? " item-detail-card-required" : "")
+  return <div className={mainDivClassname}>
     <div className="item-detail-card-contents">
+      {requiredIcon}
       <p className="text-align-start">{item.display_name}</p>
     </div>
     {(status == ItemStatus.Available) ? completionButton : null}

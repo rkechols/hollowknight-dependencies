@@ -32,6 +32,7 @@ export interface ProgressionItem {
   grub_cost: number | null
   essence_cost: number | null
   prerequisites: PrerequisiteSpec
+  required: boolean
 }
 
 export interface ProgressionItemsMap {

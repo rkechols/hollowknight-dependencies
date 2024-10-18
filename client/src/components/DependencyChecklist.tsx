@@ -18,6 +18,18 @@ function DependencyChecklistColumns(props: {
   const availableItems = gameProgress.items_available.map((id) => progressionItemsMap[id])
   const completedItems = gameProgress.items_completed.map((id) => progressionItemsMap[id])
 
+  for (const arr of [lockedItems, availableItems, completedItems]) {
+    arr.sort((a, b) => {
+      if (a.required !== b.required) {
+        // if one is required and the other isn't, put the required one first
+        return a.required ? -1 : 1
+      }
+      // both are required, or neither are required
+      // just do alphabetical by display_name
+      return (a.display_name < b.display_name) ? -1 : 1
+    })
+  }
+
   return (
     <div className="columns-box">
       <div className="column"><ChecklistColumn

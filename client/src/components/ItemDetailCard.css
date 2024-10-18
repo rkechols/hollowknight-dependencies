@@ -7,11 +7,15 @@
   border-radius: 4px;
   background-color: #4d4a4a;
   width: 98%;
-  height: fit-content;
+  height: 100%;
   margin: 3px;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: flex-end;
+}
+
+.item-detail-card-required {
+  border: 2px solid #d3a40b;
 }
 
 .completion-button {
