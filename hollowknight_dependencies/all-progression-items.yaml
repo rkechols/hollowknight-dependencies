@@ -1075,8 +1075,8 @@ grey-prince-zote:
   item_type: Boss
   prerequisites: [zote-colosseum, find-bretta, monarch-wings, dream-nail]
 ## one-offs
-hollow-knight-fountain:
-  display_name: Fountain of the Hollow Knight
+hollow-knight-memorial:
+  display_name: Memorial to the Hollow Knight
   item_type: Singleton
   prerequisites: [city-of-tears-west]
 vessel-fragment-last-stag:
