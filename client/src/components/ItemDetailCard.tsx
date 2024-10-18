@@ -1,7 +1,7 @@
 import { GameProgress, itemFullDisplayName, ItemStatus, ProgressionItem } from "../models"
 import "./ItemDetailCard.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCheckCircle, faStar } from "@fortawesome/free-solid-svg-icons"
+import { faCheckCircle, faStar, faLock } from "@fortawesome/free-solid-svg-icons"
 import { markItemCompleted } from "../ApiInterface"
 import { useProgressionItemsMapContext } from "../contexts/ProgressionItemsMapContext"
 
@@ -65,6 +65,36 @@ function ItemDetailCard(props: {
     hypotheticalsList = null
   }
 
+  let prerequisiteHelperContent
+  if (Array.isArray(item.prerequisites)) {
+    let prerequisiteDisplayNames
+    if (progressionItemsMap) {
+      prerequisiteDisplayNames = item.prerequisites.map((id) => itemFullDisplayName(progressionItemsMap[id]))
+    } else {
+      prerequisiteDisplayNames = item.prerequisites
+    }
+    prerequisiteDisplayNames.sort()
+    prerequisiteHelperContent = (
+      <>
+        Prerequisites:
+        <ul>{prerequisiteDisplayNames.map((itemName, index) => <li key={index}>{itemName}</li>)}</ul>
+      </>
+    )
+  } else {
+    prerequisiteHelperContent = (
+      <>
+        Prerequisite Expression:
+        <pre>{item.prerequisites}</pre>
+      </>
+    )
+  }
+  const prerequisitesHelper = (
+    <div className="prerequisites-helper">
+      <FontAwesomeIcon icon={faLock} className="prerequisites-helper-icon"/>
+      <div className="tooltip">{prerequisiteHelperContent}</div>
+    </div>
+  )
+
   const completionButton = (
     <button className="completion-button" onClick={onClickCompleted}>
       <FontAwesomeIcon icon={faCheckCircle}/>
@@ -81,6 +111,7 @@ function ItemDetailCard(props: {
       {costText}
       {hypotheticalsList}
     </div>
+    {(status == ItemStatus.Locked) ? prerequisitesHelper : null}
     {(status == ItemStatus.Available) ? completionButton : null}
   </div>
 }

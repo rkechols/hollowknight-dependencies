@@ -48,6 +48,41 @@
   padding-inline-start: 24px;
 }
 
+.prerequisites-helper {
+  position: relative;
+}
+
+.prerequisites-helper .tooltip {
+  visibility: hidden;
+  border: 2px solid black;
+  background-color: #4d4a4a;
+  text-align: start;
+  padding: 8px;
+  top: -4px;
+  left: 102%;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 1;
+}
+
+.prerequisites-helper:hover .tooltip {
+  visibility: visible;
+}
+
+.tooltip {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.tooltip > ul {
+  margin-block: 0;
+  padding-inline-start: 24px;
+}
+
+.prerequisites-helper-icon {
+  margin: 8px;
+}
+
 .completion-button {
   height: fit-content;
   width: fit-content;
