@@ -3,6 +3,8 @@ from functools import cache
 
 from hollowknight_dependencies.models import ALL_PROGRESSION_ITEMS, ItemType, PrerequisiteSpec, Progress, ProgressionItem
 
+ID_INFECTED_CROSSROADS = "infected-crossroads"
+
 
 class PrerequisiteExpressionError(Exception):
     """raised when a prerequisite expression is invalid"""

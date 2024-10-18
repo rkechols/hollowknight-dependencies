@@ -3,11 +3,13 @@ import re
 from pytest_subtests.plugin import SubTests
 
 from hollowknight_dependencies.models import ALL_PROGRESSION_ITEMS
+from hollowknight_dependencies.prerequisites import ID_INFECTED_CROSSROADS
 
 
 class TestAllProgressionItemsYaml:
     def test_item_ids(self, subtests: SubTests):
         defined_ids = set(ALL_PROGRESSION_ITEMS.keys())
+        assert ID_INFECTED_CROSSROADS in defined_ids
         defined_ids.add("simple-key")
         for item in ALL_PROGRESSION_ITEMS.values():
             with subtests.test(msg=item.id):
