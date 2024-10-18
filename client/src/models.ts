@@ -22,12 +22,16 @@ export enum ItemType {
   "Upgrade",
 }
 
+export function itemTypeToString(itemType: ItemType): string {
+  return ItemType[itemType]
+}
+
 export type PrerequisiteSpec = string[] | string
 
 export interface ProgressionItem {
   id: string
   display_name: string
-  item_type: ItemType
+  item_type: string
   geo_cost: number | null
   grub_cost: number | null
   essence_cost: number | null

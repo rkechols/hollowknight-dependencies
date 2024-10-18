@@ -1,5 +1,6 @@
 import { GameProgress, ItemStatus, itemStatusToString, ProgressionItem } from "../models"
 import ItemDetailCard from "./ItemDetailCard"
+import "./ChecklistColumn.css"
 
 function ChecklistColumn(props: {
   status: ItemStatus;
@@ -13,7 +14,7 @@ function ChecklistColumn(props: {
     content = <p>(None)</p>
   } else {
     content = (
-      <div>
+      <div className="checklist-column">
         {checklistItems.map((item, index) => (
           <ItemDetailCard key={index} status={status} item={item} setGameProgress={setGameProgress}/>
         ))}

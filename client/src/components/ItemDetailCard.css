@@ -1,7 +1,3 @@
-.text-align-start {
-  text-align: start;
-}
-
 .item-detail-card {
   border: 1px solid transparent;
   border-radius: 4px;
@@ -18,15 +14,34 @@
   border: 2px solid #d3a40b;
 }
 
-.completion-button {
-  height: fit-content;
-  width: fit-content;
-  margin: 8px;
-  padding: 8px;
+.required-icon {
+  color: #d3a40b;
+  padding-inline-end: 4px;
+}
+
+.item-summary-text {
+  text-align: start;
+  white-space: pre-line;
+  margin-block: 8px;
 }
 
 .item-detail-card-contents {
   width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 8px;
+}
+
+.item-detail-card-contents-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.completion-button {
+  height: fit-content;
+  width: fit-content;
+  margin: 8px;
   padding: 8px;
 }
