@@ -18,7 +18,7 @@ def convert_prerequisites_expression(prerequisite_expression: str) -> str:
     return prerequisite_expression
 
 
-def count_charms(items_completed: set[ProgressionItem]) -> int:
+def count_charms(items_completed: list[ProgressionItem]) -> int:
     return sum(item.item_type == ItemType.CHARM for item in items_completed)
 
 
@@ -40,9 +40,10 @@ def prerequisites_are_satisfied(prerequisites_spec: PrerequisiteSpec, items_comp
     if not isinstance(prerequisites_spec, str):
         raise TypeError(f"Unexpected type for prerequisites_spec: {type(prerequisites_spec)}")
     converted_expression = convert_prerequisites_expression(prerequisites_spec)
-    items_completed = {ALL_PROGRESSION_ITEMS[id_] for id_ in items_completed_ids}
+    items_completed = [ALL_PROGRESSION_ITEMS[id_] for id_ in items_completed_ids]
+    _locals = {"re": re, "items_completed_ids": items_completed_ids, "items_completed": items_completed}
     try:
-        result = eval(converted_expression, globals(), {"re": re, "items_completed_ids": items_completed_ids, "items_completed": items_completed})
+        result = eval(converted_expression, globals(), _locals)
     except Exception as e:
         raise PrerequisiteExpressionError("Failed to evaluate prerequisite expression") from e
     if not isinstance(result, bool):

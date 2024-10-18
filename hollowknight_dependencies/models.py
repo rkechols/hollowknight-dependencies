@@ -23,7 +23,7 @@ class ItemType(StrEnum):
     UPGRADE = "Upgrade"
 
 
-class ProgressionItem(BaseModel, frozen=True):
+class ProgressionItem(BaseModel):
     id: str
     display_name: str
     item_type: ItemType

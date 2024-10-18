@@ -51,13 +51,13 @@ class DbInterface:
         if progress_item_id in completed_items:
             # already completed, no action needed
             return completed_items
-        if not prerequisites_are_satisfied(progress_item, completed_items):
+        if not prerequisites_are_satisfied(progress_item.prerequisites, completed_items):
             raise PrerequisiteViolationError(f"{progress_item_id=} has unmet prerequisites")
         # mark it as completed
         await self.conn.execute("INSERT INTO progress_item_completed (id) VALUES (?)", [progress_item_id])
         await self.conn.commit()
         # return an updated list of completed items
-        await self.query_completed_progress_items()
+        return await self.query_completed_progress_items()
 
     async def reset_all_progress(self):
         await self.conn.execute("DELETE FROM progress_item_completed")
