@@ -63,8 +63,21 @@ def analyze_progress(items_completed_ids: set[str]) -> Progress:
             items_available.add(item.id)
         else:
             items_blocked.add(item.id)
+    # also analyze hypotheticals
+    hypotheticals = {}
+    for item_id in items_available:
+        hypothetical_items_completed_ids = items_completed_ids | {item_id}
+        hypothetical_unlocked_item_ids = set()
+        for blocked_item_id in items_blocked:
+            blocked_item = ALL_PROGRESSION_ITEMS[blocked_item_id]
+            if prerequisites_are_satisfied(blocked_item.prerequisites, hypothetical_items_completed_ids):
+                hypothetical_unlocked_item_ids.add(blocked_item_id)
+        if len(hypothetical_unlocked_item_ids) > 0:
+            hypotheticals[item_id] = hypothetical_unlocked_item_ids
+    # return data
     return Progress(
         items_completed=items_completed_ids,
         items_available=items_available,
         items_locked=items_blocked,
+        hypotheticals=hypotheticals,
     )

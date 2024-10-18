@@ -49,6 +49,8 @@ class Progress(BaseModel):
     items_available: set[str]
     items_locked: set[str]
 
+    hypotheticals: dict[str, set[str]]
+
     @model_validator(mode="after")
     def validate_completeness(self) -> Self:
         all_ids = set(ALL_PROGRESSION_ITEMS.keys())
@@ -65,6 +67,13 @@ class Progress(BaseModel):
             duplicated.update(set1 & set2)
         if len(duplicated) > 0:
             raise ValueError(f"`Progress` should partition item IDs; some IDs were duplicated: {sorted(duplicated)}")
+        # also check that all hypotheticals are defined
+        unrecognized_ids = set()
+        for item_id in itertools.chain(self.hypotheticals.keys(), itertools.chain(*self.hypotheticals.values())):
+            if item_id not in all_ids:
+                unrecognized_ids.add(item_id)
+        if len(unrecognized_ids) > 0:
+            raise ValueError(f"unrecognized item IDs mentioned in hypotheticals: {sorted(unrecognized_ids)}")
         return self
 
 
