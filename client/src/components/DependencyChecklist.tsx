@@ -9,8 +9,9 @@ import Popup from "./Popup"
 function DependencyChecklistColumns(props: {
   progressionItemsMap: ProgressionItemsMap;
   gameProgress: GameProgress;
+  setGameProgress: (gp: GameProgress) => void;
 }) {
-  const { progressionItemsMap, gameProgress } = props
+  const { progressionItemsMap, gameProgress, setGameProgress } = props
 
   // sort items into columns
   const lockedItems = gameProgress.items_locked.map((id) => progressionItemsMap[id])
@@ -22,14 +23,17 @@ function DependencyChecklistColumns(props: {
       <div className="column"><ChecklistColumn
         status={ItemStatus.Locked}
         checklistItems={lockedItems}
+        setGameProgress={setGameProgress}
       /></div>
       <div className="column"><ChecklistColumn
         status={ItemStatus.Available}
         checklistItems={availableItems}
+        setGameProgress={setGameProgress}
       /></div>
       <div className="column"><ChecklistColumn
         status={ItemStatus.Completed}
         checklistItems={completedItems}
+        setGameProgress={setGameProgress}
       /></div>
     </div>
   )
@@ -100,6 +104,7 @@ function DependencyChecklist() {
     content = <DependencyChecklistColumns
       progressionItemsMap={progressionItemsMap}
       gameProgress={gameProgress}
+      setGameProgress={setGameProgress}
     />
   }
 

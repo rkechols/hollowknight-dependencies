@@ -24,6 +24,12 @@ export async function getCurrentProgress(): Promise<GameProgress> {
   return response.json()
 }
 
+export async function markItemCompleted(itemID: string): Promise<GameProgress> {
+  const response = await fetch(`${API_URL_BASE}/mark-item-completed?progress_item_id=${itemID}`, { method: "POST" })
+  checkResponse(response)
+  return response.json()
+}
+
 export async function resetAllProgress(): Promise<GameProgress> {
   const response = await fetch(`${API_URL_BASE}/reset`, { method: "POST" })
   checkResponse(response)

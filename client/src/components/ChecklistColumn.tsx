@@ -1,11 +1,12 @@
-import { ItemStatus, itemStatusToString, ProgressionItem } from "../models"
+import { GameProgress, ItemStatus, itemStatusToString, ProgressionItem } from "../models"
 import ItemDetailCard from "./ItemDetailCard"
 
 function ChecklistColumn(props: {
   status: ItemStatus;
   checklistItems: ProgressionItem[];
+  setGameProgress: (gp: GameProgress) => void;
 }) {
-  const { status, checklistItems } = props
+  const { status, checklistItems, setGameProgress } = props
 
   let content
   if (checklistItems.length === 0) {
@@ -14,7 +15,7 @@ function ChecklistColumn(props: {
     content = (
       <div>
         {checklistItems.map((item, index) => (
-          <ItemDetailCard key={index} status={status} item={item}/>
+          <ItemDetailCard key={index} status={status} item={item} setGameProgress={setGameProgress}/>
         ))}
       </div>
     )
