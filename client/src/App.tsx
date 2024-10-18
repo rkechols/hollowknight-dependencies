@@ -1,6 +1,6 @@
-import './App.css'
-import DependencyChecklist from './components/DependencyChecklist'
-import { ProgressionItemsMapContextProvider } from './context'
+import "./App.css"
+import DependencyChecklist from "./components/DependencyChecklist"
+import { ProgressionItemsMapContextProvider } from "./contexts/ProgressionItemsMapContextProvider"
 
 function App() {
   return (

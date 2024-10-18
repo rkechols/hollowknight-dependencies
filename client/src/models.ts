@@ -1,15 +1,15 @@
 export enum ItemType {
-  'Ability',
-  'Boss',
-  'Charm',
-  'Map',
-  'Pale Ore',
-  'Path',
-  'Shop',
-  'Simple Key',
-  'Singleton',
-  'Stag Station',
-  'Upgrade',
+  "Ability",
+  "Boss",
+  "Charm",
+  "Map",
+  "Pale Ore",
+  "Path",
+  "Shop",
+  "Simple Key",
+  "Singleton",
+  "Stag Station",
+  "Upgrade",
 }
 
 export type PrerequisiteSpec = string[] | string

@@ -1,0 +1,19 @@
+.main-buttons-array {
+  display: inline-flex;
+}
+
+.column {
+  float: inline-start;
+  width: 33.33%;
+}
+
+/* Clear floats after the columns */
+.columns-box:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+button {
+  margin: 4px;
+}

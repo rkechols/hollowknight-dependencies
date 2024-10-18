@@ -1,8 +1,8 @@
-import { ProgressionItem } from "../../models";
+import { ProgressionItem } from "../models"
 
 function ChecklistItems(props: { items: ProgressionItem[] }) {
   if (props.items.length === 0) {
-    return <p>(None)</p>;
+    return <p>(None)</p>
   }
   return (
     <ul>
@@ -10,7 +10,7 @@ function ChecklistItems(props: { items: ProgressionItem[] }) {
         <li key={index}>{item.display_name}</li>
       ))}
     </ul>
-  );
+  )
 }
 
 function ChecklistColumn(props: {
@@ -22,7 +22,7 @@ function ChecklistColumn(props: {
       <h2>{props.title}</h2>
       <ChecklistItems items={props.checklistItems} />
     </>
-  );
+  )
 }
 
-export default ChecklistColumn;
+export default ChecklistColumn
