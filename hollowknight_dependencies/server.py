@@ -20,26 +20,29 @@ async def lifespan(_: FastAPI):
 api = FastAPI(lifespan=lifespan)
 
 
-@api.exception_handler(ItemNotDefinedError)
-async def handle_db_item_not_defined_error(_, exc: ItemNotDefinedError):
+def _error_response(status_code: int, exc: Exception) -> JSONResponse:
     return JSONResponse(
-        status_code=http_status.HTTP_404_NOT_FOUND,
+        status_code=status_code,
         content={
             "error_type": type(exc).__name__,
             "error_message": str(exc),
         },
     )
+
+
+@api.exception_handler(ItemNotDefinedError)
+async def handle_db_item_not_defined_error(_, exc: ItemNotDefinedError):
+    return _error_response(http_status.HTTP_404_NOT_FOUND, exc)
 
 
 @api.exception_handler(PrerequisiteViolationError)
 async def handle_db_prerequisite_violation_error(_, exc: PrerequisiteViolationError):
-    return JSONResponse(
-        status_code=http_status.HTTP_409_CONFLICT,
-        content={
-            "error_type": type(exc).__name__,
-            "error_message": str(exc),
-        },
-    )
+    return _error_response(http_status.HTTP_409_CONFLICT, exc)
+
+
+@api.exception_handler(Exception)
+async def handle_any_error(_, exc: Exception):
+    return _error_response(http_status.HTTP_500_INTERNAL_SERVER_ERROR, exc)
 
 
 api.include_router(router_api)
