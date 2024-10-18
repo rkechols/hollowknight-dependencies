@@ -49,6 +49,15 @@ wheels = [
 ]
 
 [[package]]
+name = "attrs"
+version = "24.2.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/fc/0f/aafca9af9315aee06a89ffde799a10a582fe8de76c563ee80bbcdc08b3fb/attrs-24.2.0.tar.gz", hash = "sha256:5cfb1b9148b5b086569baec03f20d7b6bf3bcacc9a42bebf87ffaaca362f6346", size = 792678 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/6a/21/5b6702a7f963e95456c0de2d495f67bf5fd62840ac655dc451586d23d39a/attrs-24.2.0-py3-none-any.whl", hash = "sha256:81921eb96de3191c8258c199618104dd27ac608d9366f5e35d011eae1867ede2", size = 63001 },
+]
+
+[[package]]
 name = "click"
 version = "8.1.7"
 source = { registry = "https://pypi.org/simple" }
@@ -109,6 +118,7 @@ dependencies = [
 dev = [
     { name = "pytest" },
     { name = "pytest-mock" },
+    { name = "pytest-subtests" },
 ]
 
 [package.metadata]
@@ -125,6 +135,7 @@ requires-dist = [
 dev = [
     { name = "pytest", specifier = ">=8.3.3" },
     { name = "pytest-mock", specifier = ">=3.14.0" },
+    { name = "pytest-subtests", specifier = ">=0.13.1" },
 ]
 
 [[package]]
@@ -259,6 +270,19 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/c6/90/a955c3ab35ccd41ad4de556596fa86685bf4fc5ffcc62d22d856cfd4e29a/pytest-mock-3.14.0.tar.gz", hash = "sha256:2719255a1efeceadbc056d6bf3df3d1c5015530fb40cf347c0f9afac88410bd0", size = 32814 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f2/3b/b26f90f74e2986a82df6e7ac7e319b8ea7ccece1caec9f8ab6104dc70603/pytest_mock-3.14.0-py3-none-any.whl", hash = "sha256:0b72c38033392a5f4621342fe11e9219ac11ec9d375f8e2a0c164539e0d70f6f", size = 9863 },
+]
+
+[[package]]
+name = "pytest-subtests"
+version = "0.13.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "attrs" },
+    { name = "pytest" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/67/fe/e691d2f4ce061a475f488cad1ef58431556affea323dde5c764fd7515a70/pytest_subtests-0.13.1.tar.gz", hash = "sha256:989e38f0f1c01bc7c6b2e04db7d9fd859db35d77c2c1a430c831a70cbf3fde2d", size = 15936 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f5/ac/fc132cb88e8f2042cebcb6ef0ffac40017c514fbadf3931e0b4bcb4bdfb6/pytest_subtests-0.13.1-py3-none-any.whl", hash = "sha256:ab616a22f64cd17c1aee65f18af94dbc30c444f8683de2b30895c3778265e3bd", size = 8038 },
 ]
 
 [[package]]

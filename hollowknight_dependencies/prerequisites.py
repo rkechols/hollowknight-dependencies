@@ -13,8 +13,8 @@ def convert_prerequisites_expression(prerequisite_expression: str) -> str:
     prerequisite_expression = re.sub(r"!", " not ", prerequisite_expression)
     prerequisite_expression = re.sub(r"&&", " and ", prerequisite_expression)
     prerequisite_expression = re.sub(r"\|\|", " or ", prerequisite_expression)
-    prerequisite_expression = re.sub(r"`([^`]*)`", r'("\1" in items_completed_ids)', prerequisite_expression)
     prerequisite_expression = re.sub(r"`simple-key`", " has_simple_key_unused(items_completed) ", prerequisite_expression)
+    prerequisite_expression = re.sub(r"`([^`]*)`", r'("\1" in items_completed_ids)', prerequisite_expression)
     return prerequisite_expression
 
 

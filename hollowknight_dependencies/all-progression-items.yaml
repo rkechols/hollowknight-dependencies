@@ -17,7 +17,7 @@ forgotten-crossroads:
 infected-crossroads:
   display_name: Infected Crossroads
   item_type: Path
-  prerequisites: '`monarch-wings` || `dreamer-hera` || `dreamer-monomon` || `dreamer-lurien`'
+  prerequisites: '`monarch-wings` || `dreamer-herrah` || `dreamer-monomon` || `dreamer-lurien`'
 
 greenpath:
   display_name: Greenpath
@@ -251,6 +251,7 @@ shop-sly:
   display_name: Sly's Shop
   item_type: Shop
   prerequisites: [gruz-mother, dirtmouth]
+  required: true
 shop-grubfather:
   display_name: Grubfather
   item_type: Shop
@@ -447,7 +448,7 @@ pale-ore-grubs:
   display_name: Pale Ore (Grubs)
   item_type: Pale Ore
   grub_cost: 31
-  prerequisites: [forgotten-crossroads]
+  prerequisites: [forgotten-crossroads, shop-grubfather]
 
 # Colosseum of Fools
 colosseum-of-fools-1:
@@ -484,6 +485,7 @@ gruz-mother:
   display_name: Gruz Mother
   item_type: Boss
   prerequisites: [forgotten-crossroads]
+  required: true
 no-eyes:
   display_name: No Eyes
   item_type: Boss
@@ -589,7 +591,7 @@ pale-lurker:
   item_type: Boss
   prerequisites: [colosseum-of-fools, mantis-claw]
 broken-vessel:
-  display_name: Broken Vesel
+  display_name: Broken Vessel
   item_type: Boss
   prerequisites: [ancient-basin, crystal-heart]
   required: true
@@ -664,7 +666,7 @@ mask-shard-grubs:
   display_name: Mask Shard (Grubs)
   item_type: Upgrade
   grub_cost: 5
-  prerequisites: [forgotten-crossroads]
+  prerequisites: [forgotten-crossroads, shop-grubfather]
 
 # charms
 fury-of-the-fallen:
@@ -829,12 +831,13 @@ grubsong:
   display_name: Grubsong
   item_type: Charm
   grub_cost: 10
-  prerequisites: [forgotten-crossroads]
+  prerequisites: [forgotten-crossroads, shop-grubfather]
 grubberflys-elegy:
   display_name: Grubberfly's Elegy
   item_type: Charm
   grub_cost: 46
   prerequisites:
+    - shop-grubfather
     - mothwing-cloak
     - mantis-claw
     - monarch-wings
