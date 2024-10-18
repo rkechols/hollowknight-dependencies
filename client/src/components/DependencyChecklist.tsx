@@ -50,8 +50,9 @@ function DependencyChecklist() {
       const result = await getCurrentProgress()
       setGameProgress(result)
     } catch (err) {
-      console.error(err)
-      setGameProgressError("Failed to fetch current game progress")
+      const errorMessage = "Failed to get current game progress"
+      console.error(`${errorMessage} - ${err}`)
+      setGameProgressError(errorMessage)
     } finally {
       setLoadingGameProgress(false)
     }
@@ -68,8 +69,9 @@ function DependencyChecklist() {
       const result = await resetAllProgress()
       setGameProgress(result)
     } catch (err) {
-      console.error(err)
-      setGameProgressError("Error while resetting game progress")
+      const errorMessage = "Error while resetting game progress"
+      console.error(`${errorMessage} - ${err}`)
+      setGameProgressError(errorMessage)
     } finally {
       setLoadingGameProgress(false)
     }
@@ -84,16 +86,16 @@ function DependencyChecklist() {
 
   let isBusy = false
   let content
-  if (progressionItemsMapContext.loading || progressionItemsMap === null) {
+  if (progressionItemsMapContext.loading) {
     content = <p>Loading item definitions...</p>
     isBusy = true
-  } else if (progressionItemsMapContext.error) {
-    content = <p>Error loading item definitions: {progressionItemsMapContext.error}</p>
-  } else if (loadingGameProgress || gameProgress === null) {
+  } else if (loadingGameProgress) {
     content = <p>Loading current game progress...</p>
     isBusy = true
-  } else if (gameProgressError) {
-    content = <p>Error loading current game progress: {gameProgressError}</p>
+  } else if (progressionItemsMapContext.error || progressionItemsMap === null) {
+    content = <p>{progressionItemsMapContext.error || "Failed to get item definitions"}</p>
+  } else if (gameProgressError || gameProgress === null) {
+    content = <p>{gameProgressError || "Failed to get current game progress"}</p>
   } else {
     content = <DependencyChecklistColumns
       progressionItemsMap={progressionItemsMap}

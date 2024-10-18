@@ -7,10 +7,10 @@ export interface ProgressionItemsMapState {
   error: string | null
 }
 
-export const ProgressionItemsMapContextXXX = createContext<ProgressionItemsMapState | undefined>(undefined)
+export const ProgressionItemsMapContext = createContext<ProgressionItemsMapState | undefined>(undefined)
 
 export function useProgressionItemsMapContext(): ProgressionItemsMapState {
-  const context = useContext(ProgressionItemsMapContextXXX)
+  const context = useContext(ProgressionItemsMapContext)
   if (context === undefined) {
     throw new Error("useProgressionItemsMapContext must be used within a ProgressionItemsMapContextProvider")
   }
