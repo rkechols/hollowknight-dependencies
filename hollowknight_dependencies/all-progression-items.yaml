@@ -285,121 +285,121 @@ shop-seer:
 
 # maps
 map-forgotten-crossroads:
-  display_name: Map of Forgotten Crossroads
+  display_name: Map - Forgotten Crossroads
   item_type: Map
   geo_cost: 30
   prerequisites: [forgotten-crossroads]
 map-greenpath:
-  display_name: Map of Greenpath
+  display_name: Map - Greenpath
   item_type: Map
   geo_cost: 60
   prerequisites: [greenpath]
 map-howling-cliffs:
-  display_name: Map of Howling Cliffs
+  display_name: Map - Howling Cliffs
   item_type: Map
   geo_cost: 75
   prerequisites: [howling-cliffs]
 map-fungal-wastes:
-  display_name: Map of Fungal Wastes
+  display_name: Map - Fungal Wastes
   item_type: Map
   geo_cost: 75
   prerequisites: [fungal-wastes]
 map-city-of-tears:
-  display_name: Map of City of Tears
+  display_name: Map - City of Tears
   item_type: Map
   geo_cost: 90
   prerequisites: [city-of-tears-west]
 map-fog-canyon:
-  display_name: Map of Fog Canyon
+  display_name: Map - Fog Canyon
   item_type: Map
   geo_cost: 150
   prerequisites: [fog-canyon-east]
 map-royal-waterways:
-  display_name: Map of Royal Waterways
+  display_name: Map - Royal Waterways
   item_type: Map
   geo_cost: 75
   prerequisites: [royal-waterways-west]
 map-crystal-peak:
-  display_name: Map of Crystal Peak
+  display_name: Map - Crystal Peak
   item_type: Map
   geo_cost: 112
   prerequisites: [crystal-peak]
 map-resting-grounds:
-  display_name: Map of Resting Grounds
+  display_name: Map - Resting Grounds
   item_type: Map
   prerequisites: [resting-grounds]
 map-deepnest:
-  display_name: Map of Deepnest
+  display_name: Map - Deepnest
   item_type: Map
   geo_cost: 38
   prerequisites: [deepnest]
 map-queens-gardens:
-  display_name: Map of Queen's Gardens
+  display_name: Map - Queen's Gardens
   item_type: Map
   geo_cost: 150
   prerequisites: [queens-gardens]
 map-kingdoms-edge:
-  display_name: Map of Kingdom's Edge
+  display_name: Map - Kingdom's Edge
   item_type: Map
   geo_cost: 112
   prerequisites: [kingdoms-edge]
 map-ancient-basin:
-  display_name: Map of Ancient Basin
+  display_name: Map - Ancient Basin
   item_type: Map
   geo_cost: 112
   prerequisites: [ancient-basin]
 
 # stags
 stag-forgotten-crossroads:
-  display_name: Stag at Forgotten Crossroads
+  display_name: Stag - Forgotten Crossroads
   item_type: Stag Station
   geo_cost: 50
   prerequisites: [forgotten-crossroads]
 stag-dirtmouth:
-  display_name: Stag at Dirtmouth
+  display_name: Stag - Dirtmouth
   item_type: Stag Station
   prerequisites: 'any(item.item_type == "Stag Station" for item in items_completed)'
 stag-greenpath:
-  display_name: Stag at Greenpath
+  display_name: Stag - Greenpath
   item_type: Stag Station
   geo_cost: 140
   prerequisites: [greenpath-west]
 stag-queens-station:
-  display_name: Stag at Queen's Station
+  display_name: Stag - Queen's Station
   item_type: Stag Station
   geo_cost: 120
   prerequisites: [fog-canyon-west]
 stag-city-storerooms:
-  display_name: Stag at City Storerooms
+  display_name: Stag - City Storerooms
   item_type: Stag Station
   geo_cost: 200
   prerequisites: [city-storerooms]
 stag-kings-station:
-  display_name: Stag at King's Station
+  display_name: Stag - King's Station
   item_type: Stag Station
   geo_cost: 300
   prerequisites: [city-of-tears-east]
 stag-resting-grounds:
-  display_name: Stag at Resting Grounds
+  display_name: Stag - Resting Grounds
   item_type: Stag Station
   prerequisites: [resting-grounds]
 stag-distant-village:
-  display_name: Stag at Distant Village (Deepnest)
+  display_name: Stag - Distant Village (Deepnest)
   item_type: Stag Station
   geo_cost: 250
   prerequisites: [deepnest]
 stag-queens-gardens:
-  display_name: Stag at Queens Gardens
+  display_name: Stag - Queens Gardens
   item_type: Stag Station
   geo_cost: 200
   prerequisites: [queens-gardens]
 stag-hidden-station:
-  display_name: Stag at Hidden Station (Ancient Basin)
+  display_name: Stag - Hidden Station (Ancient Basin)
   item_type: Stag Station
   geo_cost: 300
   prerequisites: [palace-grounds]
 stag-howling-cliffs:
-  display_name: Stag at Howling Cliffs
+  display_name: Stag - Howling Cliffs
   item_type: Stag Station
   prerequisites: 'sum(item.item_type == "Stag Station" for item in items_completed) >= 10'
 
@@ -491,7 +491,7 @@ no-eyes:
   item_type: Boss
   prerequisites: [lantern, dream-nail]
 moss-knight:
-  display_name: Moss Knight (miniboss)
+  display_name: Moss Knight
   item_type: Boss
   prerequisites: [greenpath]
   required: true
@@ -509,7 +509,7 @@ gorb:
   item_type: Boss
   prerequisites: [howling-cliffs, dream-nail]
 shrumal-ogres:
-  display_name: Shrumal Ogres (miniboss)
+  display_name: Shrumal Ogres
   item_type: Boss
   prerequisites: [fungal-wastes]
 elder-hu:
