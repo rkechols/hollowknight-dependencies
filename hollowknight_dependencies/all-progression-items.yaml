@@ -45,16 +45,21 @@ fog-canyon-east:
   prerequisites: '(`fog-canyon-west` && `shade-cloak`) || `ismas-tear`'
   required: true
 
-fungal-wastes:
-  display_name: Fungal Wastes
+fungal-wastes-west:
+  display_name: Fungal Wastes (west)
   item_type: Path
-  prerequisites: '`mothwing-cloak` && (`fog-canyon-west` || `forgotten-crossroads`)'
+  prerequisites: '(`mothwing-cloak` && `fog-canyon-west`) || `fungal-wastes-east`'
+  required: true
+fungal-wastes-east:
+  display_name: Fungal Wastes (east)
+  item_type: Path
+  prerequisites: '(`mothwing-cloak` && `forgotten-crossroads`) || (`city-of-tears-west` && `desolate-dive`) || `royal-waterways-west`'
   required: true
 
 city-of-tears-west:
   display_name: City of Tears (west)
   item_type: Path
-  prerequisites: '`fungal-wastes` && `mantis-claw` && `city-crest` || `city-of-tears-east`'
+  prerequisites: '`fungal-wastes-east` && `mantis-claw` && `city-crest` || `city-of-tears-east`'
 city-storerooms:
   display_name: City Storerooms
   item_type: Path
@@ -121,7 +126,7 @@ blue-lake:
 deepnest:
   display_name: Deepnest
   item_type: Path
-  prerequisites: '`lantern` && (`mantis-lords` || (`fungal-wastes` && `monarch-wings`) || `queens-gardens`)'
+  prerequisites: '`lantern` && (`mantis-lords` || (`fungal-wastes-east` && `monarch-wings`) || `queens-gardens`)'
   required: true
 
 queens-gardens:
@@ -190,7 +195,7 @@ mothwing-cloak:
 mantis-claw:
   display_name: Mantis Claw
   item_type: Ability
-  prerequisites: [fungal-wastes]
+  prerequisites: [fungal-wastes-east]
   required: true
 howling-wraiths:
   display_name: Howling Wraiths
@@ -269,7 +274,7 @@ shop-leg-eater:
   display_name: Leg Eater's Shop
   item_type: Shop
   geo_cost: 86
-  prerequisites: [fungal-wastes]
+  prerequisites: [fungal-wastes-east]
 shop-nailsmith:
   display_name: Nailsmith's Shop
   item_type: Shop
@@ -303,7 +308,7 @@ map-fungal-wastes:
   display_name: Map - Fungal Wastes
   item_type: Map
   geo_cost: 75
-  prerequisites: [fungal-wastes]
+  prerequisites: [fungal-wastes-west]
 map-city-of-tears:
   display_name: Map - City of Tears
   item_type: Map
@@ -511,11 +516,11 @@ gorb:
 shrumal-ogres:
   display_name: Shrumal Ogres
   item_type: Boss
-  prerequisites: [fungal-wastes]
+  prerequisites: [fungal-wastes-east]
 elder-hu:
   display_name: Elder Hu
   item_type: Boss
-  prerequisites: [fungal-wastes, dream-nail]
+  prerequisites: [fungal-wastes-east, dream-nail]
 mantis-lords:
   display_name: Mantis Lords
   item_type: Boss
@@ -632,11 +637,11 @@ mask-shard-fcr-hot-springs:
 mask-shard-queens-station:
   display_name: Mask Shard (Queen's Station)
   item_type: Upgrade
-  prerequisites: '`mantis-claw` && (`fog-canyon-west` || `fungal-wastes`)'
-mask-shard-mantis-village:
-  display_name: Mask Shard (near mantis village)
+  prerequisites: '`mantis-claw` && (`fog-canyon-west` || `fungal-wastes-west`)'
+mask-shard-fungal-core:
+  display_name: Mask Shard (fungal core)
   item_type: Upgrade
-  prerequisites: [fungal-wastes, monarch-wings]
+  prerequisites: [fungal-wastes-east, monarch-wings]
 mask-shard-bretta:
   display_name: Mask Shard (Bretta's house)
   item_type: Upgrade
@@ -765,17 +770,17 @@ fragile-strength:
 spore-shroom:
   display_name: Spore Shroom
   item_type: Charm
-  prerequisites: [fungal-wastes, mantis-claw]
+  prerequisites: [fungal-wastes-west, mantis-claw]
 dashmaster:
   display_name: Dashmaster
   item_type: Charm
-  prerequisites: [fungal-wastes]
+  prerequisites: [fungal-wastes-east]
 mark-of-pride:
   display_name: Mark of Pride
   item_type: Charm
   prerequisites: [mantis-lords]
 spell-twister:
-  display_name: Soul Twister
+  display_name: Spell Twister
   item_type: Charm
   prerequisites: [soul-sanctum]
 nailmasters-glory:
@@ -847,7 +852,8 @@ grubberflys-elegy:
     - forgotten-crossroads
     - greenpath
     - moss-knight
-    - fungal-wastes
+    - fungal-wastes-west
+    - fungal-wastes-east
     - city-of-tears-west
     - city-of-tears-east
     - crystal-peak
@@ -1119,11 +1125,16 @@ vessel-fragment-last-stag:
 find-bretta:
   display_name: Find Bretta
   item_type: Singleton
-  prerequisites: [fungal-wastes, mantis-claw]
+  prerequisites: [fungal-wastes-east, mantis-claw]
+city-storerooms-lift:
+  display_name: City Storerooms Lift
+  item_type: Singleton
+  geo_cost: 150
+  prerequisites: [city-storerooms]
 vessel-fragment-above-city-storerooms:
   display_name: Vessel Fragment (City Storerooms lift)
   item_type: Upgrade
-  prerequisites: [city-storerooms]
+  prerequisites: [city-storerooms-lift]
 charm-notch-ne-fog-canyon:
   display_name: Charm Notch (NE Fog Canyon)
   item_type: Upgrade
@@ -1150,7 +1161,7 @@ delicate-flower-quest:
   item_type: Singleton
   prerequisites: |
     `resting-grounds-crypts` && (
-      (`blue-lake` && `city-storerooms` && `fungal-wastes` && `fog-canyon-west` && `ismas-tear` && `queens-gardens`)
+      (`blue-lake` && `city-storerooms` && `fungal-wastes-east` && `fungal-wastes-west` && `fog-canyon-west` && `ismas-tear` && `queens-gardens`)
       || (`tram-pass` && !`infected-crossroads` && `ismas-tear` && `fog-canyon-east` && `queens-gardens`)
     )
 vessel-fragment-deepnest:
