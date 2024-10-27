@@ -1,5 +1,5 @@
 import re
-from functools import cache
+from functools import cache, partial
 
 from hollowknight_dependencies.models import ALL_PROGRESSION_ITEMS, ItemType, PrerequisiteSpec, Progress, ProgressionItem
 
@@ -20,8 +20,8 @@ def convert_prerequisites_expression(prerequisite_expression: str) -> str:
     return prerequisite_expression
 
 
-def count_charms(items_completed: list[ProgressionItem]) -> int:
-    return sum(item.item_type == ItemType.CHARM for item in items_completed)
+def count_completed_items_of_type(item_type: ItemType, items_completed: list[ProgressionItem]) -> int:
+    return sum(item.item_type == item_type for item in items_completed)
 
 
 def _requires_simple_key(prerequisites: PrerequisiteSpec) -> bool:
@@ -43,7 +43,12 @@ def prerequisites_are_satisfied(prerequisites_spec: PrerequisiteSpec, items_comp
         raise TypeError(f"Unexpected type for prerequisites_spec: {type(prerequisites_spec)}")
     converted_expression = convert_prerequisites_expression(prerequisites_spec)
     items_completed = [ALL_PROGRESSION_ITEMS[id_] for id_ in items_completed_ids]
-    _locals = {"re": re, "items_completed_ids": items_completed_ids, "items_completed": items_completed}
+    _locals = {
+        "re": re,
+        "items_completed_ids": items_completed_ids,
+        "items_completed": items_completed,
+        "count_completed_items_of_type": partial(count_completed_items_of_type, items_completed=items_completed),
+    }
     try:
         result = eval(converted_expression, globals(), _locals)
     except Exception as e:

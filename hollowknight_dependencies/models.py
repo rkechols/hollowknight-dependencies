@@ -14,6 +14,7 @@ class ItemType(StrEnum):
     BOSS = "Boss"
     CHARM = "Charm"
     MAP = "Map"
+    MASK_SHARD = "Mask Shard"
     PALE_ORE = "Pale Ore"
     PATH = "Path"
     SHOP = "Shop"
@@ -21,6 +22,7 @@ class ItemType(StrEnum):
     SINGLETON = "Singleton"
     STAG_STATION = "Stag Station"
     UPGRADE = "Upgrade"
+    VESSEL_FRAGMENT = "Vessel Fragment"
 
 
 class ProgressionItem(BaseModel):
@@ -32,6 +34,8 @@ class ProgressionItem(BaseModel):
     essence_cost: int | None = None
     prerequisites: PrerequisiteSpec
     required: bool = False
+    percentage_value: int = 0
+    auto_trigger: bool = False
 
 
 AllProgressionItemsType = dict[str, ProgressionItem]
