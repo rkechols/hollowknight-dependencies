@@ -2,7 +2,7 @@ from fastapi import APIRouter
 
 from hollowknight_dependencies.api_deps import DbInterfaceDep
 from hollowknight_dependencies.models import ALL_PROGRESSION_ITEMS, AllProgressionItemsType, Progress
-from hollowknight_dependencies.prerequisites import analyze_progress, ID_INFECTED_CROSSROADS
+from hollowknight_dependencies.prerequisites import analyze_progress
 
 router = APIRouter(prefix="/api", tags=["api"])
 
@@ -21,11 +21,16 @@ async def get_current_progress(db: DbInterfaceDep) -> Progress:
 @router.post("/mark-item-completed")
 async def mark_item_completed(progress_item_id: str, db: DbInterfaceDep) -> Progress:
     items_completed = await db.mark_progress_item_completed(progress_item_id)
-    updated_progress = analyze_progress(items_completed)
-    if ID_INFECTED_CROSSROADS in updated_progress.items_available:
-        # infected crossroads triggers automatically
-        items_completed = await db.mark_progress_item_completed(ID_INFECTED_CROSSROADS)
+    # check if anything currently available is marked as `auto_trigger`
+    while True:  # do-while
+        stable_state = True
         updated_progress = analyze_progress(items_completed)
+        for available_item_id in updated_progress.items_available:
+            if ALL_PROGRESSION_ITEMS[available_item_id].auto_trigger:
+                stable_state = False
+                items_completed = await db.mark_progress_item_completed(available_item_id)
+        if stable_state:  # do-while
+            break
     return updated_progress
 
 
