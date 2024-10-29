@@ -10,6 +10,9 @@ function ChecklistColumn(props: {
 }) {
   const { status, checklistItems, setGameProgress, hypotheticals } = props
 
+  const percentageSum = checklistItems.reduce((acc, item) => acc + (item.percentage_value || 0), 0)
+  const percentageText = percentageSum ? ` - ${percentageSum}%` : ""
+
   let hypotheticalsPrepared: { [id: string]: string[] }
   if (hypotheticals && status == ItemStatus.Available) {
     hypotheticalsPrepared = hypotheticals
@@ -54,7 +57,7 @@ function ChecklistColumn(props: {
 
   return (
     <>
-      <h2>{itemStatusToString(status)}</h2>
+      <h2>{itemStatusToString(status)}{percentageText}</h2>
       {content}
     </>
   )

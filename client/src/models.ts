@@ -13,6 +13,7 @@ export enum ItemType {
   "Boss",
   "Charm",
   "Map",
+  "Mask Shard",
   "Pale Ore",
   "Path",
   "Shop",
@@ -20,6 +21,7 @@ export enum ItemType {
   "Singleton",
   "Stag Station",
   "Upgrade",
+  "Vessel Fragment",
 }
 
 export function itemTypeToString(itemType: ItemType): string {
@@ -37,12 +39,17 @@ export interface ProgressionItem {
   essence_cost: number | null
   prerequisites: PrerequisiteSpec
   required: boolean
+  percentage_value: number | null
+  auto_trigger: boolean
 }
 
 export function itemFullDisplayName(item: ProgressionItem): string {
   let displayName = item.display_name
   if (item.item_type == itemTypeToString(ItemType.Charm) || item.item_type == itemTypeToString(ItemType.Boss)) {
     displayName = `${item.item_type} - ${displayName}`
+  }
+  if (item.percentage_value) {
+    displayName += ` - ${item.percentage_value}%`
   }
   return displayName
 }
