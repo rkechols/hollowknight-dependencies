@@ -43,12 +43,12 @@ export interface ProgressionItem {
   auto_trigger: boolean
 }
 
-export function itemFullDisplayName(item: ProgressionItem): string {
+export function itemFullDisplayName(item: ProgressionItem, showPercentageValue: boolean = false): string {
   let displayName = item.display_name
   if (item.item_type == itemTypeToString(ItemType.Charm) || item.item_type == itemTypeToString(ItemType.Boss)) {
     displayName = `${item.item_type} - ${displayName}`
   }
-  if (item.percentage_value) {
+  if (showPercentageValue && item.percentage_value) {
     displayName += ` - ${item.percentage_value}%`
   }
   return displayName

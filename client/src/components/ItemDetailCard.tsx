@@ -106,7 +106,7 @@ function ItemDetailCard(props: {
     <div className="item-detail-card-contents">
       <div className="item-detail-card-contents-header">
         {requiredIcon}
-        <b>{itemFullDisplayName(item)}</b>
+        <b>{itemFullDisplayName(item, true)}</b>
       </div>
       {costText}
       {hypotheticalsList}
