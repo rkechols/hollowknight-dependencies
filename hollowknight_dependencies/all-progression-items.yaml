@@ -499,6 +499,10 @@ false-knight:
   prerequisites: [forgotten-crossroads]
   required: true
   percentage_value: 1
+failed-champion:
+  display_name: Failed Champion
+  item_type: Boss
+  prerequisites: [false-knight, dream-nail]
 brooding-mawlek:
   display_name: Brooding Mawlek
   item_type: Boss
@@ -558,6 +562,10 @@ soul-master:
   item_type: Boss
   prerequisites: [soul-sanctum, soul-warrior]
   percentage_value: 1
+soul-tyrant:
+  display_name: Soul Tyrant
+  item_type: Boss
+  prerequisites: [soul-master, dream-nail]
 uumuu:
   display_name: Uumuu
   item_type: Boss
@@ -580,6 +588,10 @@ dung-defender:
   item_type: Boss
   prerequisites: [royal-waterways-west]
   percentage_value: 1
+white-defender:
+  display_name: White Defender
+  item_type: Boss
+  prerequisites: [dung-defender, dream-nail, dreamer-monomon, dreamer-lurien, dreamer-herrah, desolate-dive]
 flukemarm:
   display_name: Flukemarm
   item_type: Boss
@@ -642,6 +654,10 @@ broken-vessel:
   prerequisites: [ancient-basin, crystal-heart]
   required: true
   percentage_value: 1
+lost-kin:
+  display_name: Lost Kin
+  item_type: Boss
+  prerequisites: [broken-vessel, dream-nail]
 troupe-master-grimm:
   display_name: Troupe Master Grimm
   item_type: Boss
@@ -1506,5 +1522,4 @@ vessel-upgrade-3:
 
 
 # TODO:
-# - secondary boss forms (e.g. dung defender -> white defender)
 # - individual grubs
